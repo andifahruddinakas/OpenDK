@@ -41,6 +41,6 @@ Route::group(['prefix' => 'v1'], function() {
      * Apbdes
      */
     Route::group(['prefix' => 'laporan-apbdes'], function () {
-        Route::post('/', 'Api\LaporanApbdesController@storedata');
+        Route::post('/', 'Api\LaporanApbdesController@store');
     });    
 });
