@@ -55,7 +55,6 @@ class LaporanApbdesQueueJob implements ShouldQueue
         DB::beginTransaction();
 
         try {
-            // Batch delete Apbdes
             if (isset($this->request['laporan_apbdes'])) {
                 foreach ($this->request['laporan_apbdes'] as $value) {
                     
