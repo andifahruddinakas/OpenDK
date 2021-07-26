@@ -12,17 +12,16 @@
 namespace App\Classes\MenuNav;
 
 use App\Models\Menu;
-use Sentinel;
-
 use function array_push;
 use function count;
+use Sentinel;
 
 class MenuNav
 {
     public function menu()
     {
         $menus = Menu::where('is_active', 1)->where('parent_id', 0)->get();
-        $data  = [];
+        $data = [];
         foreach ($menus as $i => $menu) {
             $childs = Menu::where('parent_id', $menu->id)->orderBy('id', 'ASC')->get()->toArray();
 
@@ -52,7 +51,7 @@ class MenuNav
             if ($menu['url'] == '#' || empty($menu['url'])) {
                 $url_menu = 'javascript:void(0)';
             } else {
-                 $url_menu = $url . '/' . $menu['url'];
+                $url_menu = $url.'/'.$menu['url'];
             }
 
             if ($user->hasAnyAccess([$menu['slug'], 'admin']) || $menu['slug'] == 'dashboard') {
@@ -62,19 +61,19 @@ class MenuNav
                 }
                 $html .= '<li class="treeview">';
                 if ($menu['slug'] == 'speed-test') {
-                    $html .= '<a href=" ' . $url_menu . ' " data-dropdown-toggle="false" target="_blank">';
+                    $html .= '<a href=" '.$url_menu.' " data-dropdown-toggle="false" target="_blank">';
                 } else {
-                    $html .= '<a href=" ' . $url_menu . ' " data-dropdown-toggle="false">';
+                    $html .= '<a href=" '.$url_menu.' " data-dropdown-toggle="false">';
                 }
-                $html .= '<i class="fa ' . $menu['icon'] . '" aria-hidden="true"></i>
-                    ' . $menu['name'] . $down . '</a>';
+                $html .= '<i class="fa '.$menu['icon'].'" aria-hidden="true"></i>
+                    '.$menu['name'].$down.'</a>';
                 if (count($menu['child']) > 0) {
                     $html .= '<ul class="treeview-menu">';
                     foreach ($menu['child'] as $j => $child) {
                         if ($user->hasAnyAccess([$child['slug'], 'admin']) || $menu['slug'] == 'dashboard') {
                             $html .= '<li>
-                                <a href=" ' . $url . '/' . $child['url'] . ' ">
-                                    ' . $child['name'] . '
+                                <a href=" '.$url.'/'.$child['url'].' ">
+                                    '.$child['name'].'
                                 </a>
                             </li>';
                         }
@@ -85,6 +84,6 @@ class MenuNav
             }
         }
 
-        return $html . '</ul>';
+        return $html.'</ul>';
     }
 }

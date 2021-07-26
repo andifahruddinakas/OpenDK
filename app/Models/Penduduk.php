@@ -7,23 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 class Penduduk extends Model
 {
     public $incrementing = false;
-    protected $table     = 'das_penduduk';
-    protected $fillable  = [];
-    protected $guarded   = [];
+    protected $table = 'das_penduduk';
+    protected $fillable = [];
+    protected $guarded = [];
 
     /**
-     * Relation Methods
+     * Relation Methods.
      * */
-
     public function getPendudukAktif($kid, $did, $year)
     {
-        $penduduk =  $this
+        $penduduk = $this
             ->where('status_dasar', 1)
             ->where('kecamatan_id', $kid)
             ->whereRaw('YEAR(created_at) <= ?', $year);
         if ($did != 'ALL') {
             $penduduk->where('desa_id', $did);
         }
+
         return $penduduk;
     }
 

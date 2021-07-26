@@ -18,9 +18,8 @@ class RoleTableSeeder extends Seeder
             'slug' => 'super-admin',
             'name' => 'Super Administrator',
             'permissions' => [
-                'admin' => true
-            ]
+                'admin' => true,
+            ],
         ]);
-
     }
 }

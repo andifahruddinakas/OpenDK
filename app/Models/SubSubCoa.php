@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubSubCoa extends Model
 {
-    protected $table     = 'ref_sub_sub_coa';
+    protected $table = 'ref_sub_sub_coa';
     public $incrementing = false;
 
     protected $fillable = [

@@ -1,12 +1,10 @@
 <?php
 
 /**
- * Laravel - A PHP Framework For Web Artisans
+ * Laravel - A PHP Framework For Web Artisans.
  *
- * @package  Laravel
  * @author   Taylor Otwell <taylor@laravel.com>
  */
-
 define('LARAVEL_START', microtime(true));
 
 /*
@@ -38,7 +36,7 @@ require __DIR__.'/../vendor/autoload.php';
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
 // https://laracasts.com/discuss/channels/general-discussion/where-do-you-set-public-directory-laravel-5
-$app->bind('path.public', function() {
+$app->bind('path.public', function () {
     return __DIR__;
 });
 

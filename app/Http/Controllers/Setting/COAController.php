@@ -6,25 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Models\Coa;
 use App\Models\SubCoa;
 use App\Models\SubSubCoa;
+use function back;
+use function compact;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
-use function back;
-use function compact;
 use function intval;
 use function redirect;
 use function request;
 use function str_pad;
-use function view;
-
 use const STR_PAD_LEFT;
+use function view;
 
 class COAController extends Controller
 {
     public function index()
     {
-        $page_title       = 'Daftar Akun';
+        $page_title = 'Daftar Akun';
         $page_description = 'Daftar Akun COA';
 
         return view('setting.coa.index', compact('page_title', 'page_description'));
@@ -32,7 +30,7 @@ class COAController extends Controller
 
     public function create()
     {
-        $page_title       = "Tambah";
+        $page_title = 'Tambah';
         $page_description = 'Tambah COA Baru';
 
         return view('setting.coa.create', compact('page_title', 'page_description'));

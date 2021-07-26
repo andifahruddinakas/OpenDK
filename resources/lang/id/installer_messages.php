@@ -3,9 +3,7 @@
 return [
 
     /**
-     *
      * Shared translations.
-     *
      */
     'title' => 'Dashboard Dashboard Installer',
     'next' => 'Selanjutnya',
@@ -16,9 +14,7 @@ return [
     ],
 
     /**
-     *
      * Home page translations.
-     *
      */
     'welcome' => [
         'templateTitle' => 'Selamat Datang',
@@ -28,9 +24,7 @@ return [
     ],
 
     /**
-     *
      * Requirements page translations.
-     *
      */
     'requirements' => [
         'templateTitle' => 'Langkah 1 | Kebutuhan Server',
@@ -39,9 +33,7 @@ return [
     ],
 
     /**
-     *
      * Permissions page translations.
-     *
      */
     'permissions' => [
         'templateTitle' => 'Langkah 2 | Hak Akses',
@@ -50,9 +42,7 @@ return [
     ],
 
     /**
-     *
      * Environment page translations.
-     *
      */
     'environment' => [
         'menu' => [
@@ -68,7 +58,7 @@ return [
             'tabs' => [
                 'environment' => 'Lingkungan',
                 'database' => 'Basis Data',
-                'application' => 'Aplikasi'
+                'application' => 'Aplikasi',
             ],
             'form' => [
                 'name_required' => 'Lingkungan aplikasi harus ditetapkan',
@@ -170,18 +160,14 @@ return [
     'install' => 'Pasang',
 
     /**
-     *
      * Installed Log translations.
-     *
      */
     'installed' => [
         'success_log_message' => 'Dashboard Kecamatan berhasil DIPASANG pada ',
     ],
 
     /**
-     *
      * Final page translations.
-     *
      */
     'final' => [
         'title' => 'Instalasi Selesai',
@@ -195,22 +181,16 @@ return [
     ],
 
     /**
-     *
-     * Update specific translations
-     *
+     * Update specific translations.
      */
     'updater' => [
         /**
-         *
          * Shared translations.
-         *
          */
         'title' => 'Dashboard Kecamatan Updater',
 
         /**
-         *
          * Welcome page translations for update feature.
-         *
          */
         'welcome' => [
             'title'   => 'Selamat Datang di App Updater',
@@ -218,20 +198,16 @@ return [
         ],
 
         /**
-         *
          * Welcome page translations for update feature.
-         *
          */
         'overview' => [
             'title'   => 'Tinjauan',
             'message' => 'Ada 1 pembaruan.|Ada :number pembaruan.',
-            'install_updates' => "Pasang Pembaruan"
+            'install_updates' => 'Pasang Pembaruan',
         ],
 
         /**
-         *
          * Final page translations.
-         *
          */
         'final' => [
             'title' => 'Selesai',

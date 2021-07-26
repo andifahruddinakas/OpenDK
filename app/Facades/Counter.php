@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Time: 6:30 AM
+ * Time: 6:30 AM.
  */
 
 namespace App\Facades;

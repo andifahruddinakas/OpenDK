@@ -17,11 +17,11 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::group(['prefix' => 'v1'], function() {
+Route::group(['prefix' => 'v1'], function () {
     /**
-     * Authentication api
+     * Authentication api.
      */
-    Route::group(['prefix' => 'auth'], function() {
+    Route::group(['prefix' => 'auth'], function () {
         Route::post('login', 'Api\Auth\AuthController@login');
         Route::post('logout', 'Api\Auth\AuthController@logout');
         Route::post('refresh', 'Api\Auth\AuthController@refresh');
@@ -29,7 +29,7 @@ Route::group(['prefix' => 'v1'], function() {
     });
 
     /**
-     * Penduduk
+     * Penduduk.
      */
     Route::group(['prefix' => 'penduduk'], function () {
         Route::post('/', 'Api\PendudukController@store');

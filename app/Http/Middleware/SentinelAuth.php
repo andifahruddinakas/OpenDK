@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Closure;
 use Illuminate\Http\Request;
-
 use function redirect;
 use function response;
 

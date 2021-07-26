@@ -3,21 +3,19 @@
 use App\Models\DataDesa;
 use App\Models\Wilayah;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class DasDataDesaTableSeeder extends Seeder
 {
-
     /**
-     * Auto generated seed file
+     * Auto generated seed file.
      *
      * @return void
      */
     public function run()
     {
         $kecamatan_id = config('app.default_profile');
-        $desa         = Wilayah::getDesaByKecamatan($kecamatan_id)->get();
-        $collection   = collect($desa);
+        $desa = Wilayah::getDesaByKecamatan($kecamatan_id)->get();
+        $collection = collect($desa);
         $collection->shift();
 
         foreach ($collection as $value) {

@@ -14,7 +14,6 @@ class ContohDasProfilTableSeeder extends Seeder
      */
     public function run()
     {
-
         $kecamatan_id = config('app.default_profile');
 
         DB::table('das_profil')->truncate();
@@ -38,9 +37,9 @@ class ContohDasProfilTableSeeder extends Seeder
             'kepsek_pelayanan_umum'           => 'Masturi, ST',
             'kepsek_trantib'                  => 'Mastur Idris, SH',
             'file_struktur_organisasi'        => 'Lighthouse.jpg',
-            'file_logo'                       => NULL,
-            'visi'                            => NULL,
-            'misi'                            => NULL,
+            'file_logo'                       => null,
+            'visi'                            => null,
+            'misi'                            => null,
             'created_at'                      => '2018-02-03 06:57:26',
             'updated_at'                      => '2018-07-19 01:29:57',
         ]);

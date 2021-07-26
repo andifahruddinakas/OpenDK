@@ -1,9 +1,9 @@
 <?php
 
 use Database\Seeds\Demo\ContohDasDataDesaTableSeeder;
-use Database\Seeds\Demo\ContohDasProfilTableSeeder;
 use Database\Seeds\Demo\ContohDasDataUmumTableSeeder;
 use Database\Seeds\Demo\ContohDasKeluargaTableSeeder;
+use Database\Seeds\Demo\ContohDasProfilTableSeeder;
 use Database\Seeds\Demo\DemoAKIAKBSeeder;
 use Database\Seeds\Demo\DemoAnggaranRealisasiSeeder;
 use Database\Seeds\Demo\DemoAPBDesaSeeder;

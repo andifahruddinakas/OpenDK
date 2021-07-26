@@ -11,7 +11,6 @@ class Prosedur extends Model
      *
      * @var array
      */
-
     protected $table = 'das_prosedur';
 
     protected $fillable = [

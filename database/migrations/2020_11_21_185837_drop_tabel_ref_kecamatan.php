@@ -26,7 +26,7 @@ class DropTabelRefKecamatan extends Migration
         Schema::create('ref_kecamatan', function (Blueprint $table) {
             $table->char('id', 7);
             $table->char('kabupaten_id', 4);
-            $table->string('nama',255);
+            $table->string('nama', 255);
         });
     }
 }

@@ -13,7 +13,7 @@ class ImporToiletSanitasi implements ToModel, WithHeadingRow, WithChunkReading, 
 {
     use Importable;
 
-    /** @var array $request */
+    /** @var array */
     protected $request;
 
     public function __construct(array $request)

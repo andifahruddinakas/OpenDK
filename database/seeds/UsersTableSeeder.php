@@ -28,21 +28,21 @@ class UsersTableSeeder extends Seeder
                 'role' => 'super-admin',
                 'address' => 'Jakarta',
                 'phone'   => '622157905788',
-                'status' => 1
+                'status' => 1,
             ],
         ];
 
-        foreach ( $datas as $key => $data ) {
-            $user = Sentinel::registerAndActivate( [
-                'email' => $data[ 'email' ],
-                'password' => "password",
+        foreach ($datas as $key => $data) {
+            $user = Sentinel::registerAndActivate([
+                'email' => $data['email'],
+                'password' => 'password',
                 'name' => $data['name'],
-                'gender' => $data[ 'gender' ],
-                'phone' => $data[ 'phone' ],
-                'address' => $data[ 'address' ],
-                'status' => 1
-            ] );
-            Sentinel::findRoleBySlug( $data[ 'role' ] )->users()->attach( $user );
+                'gender' => $data['gender'],
+                'phone' => $data['phone'],
+                'address' => $data['address'],
+                'status' => 1,
+            ]);
+            Sentinel::findRoleBySlug($data['role'])->users()->attach($user);
         }
 
         Schema::enableForeignKeyConstraints();

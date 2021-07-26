@@ -4,21 +4,17 @@ use Illuminate\Database\Seeder;
 
 class DasMenuTableSeeder extends Seeder
 {
-
     /**
-     * Auto generated seed file
+     * Auto generated seed file.
      *
      * @return void
      */
     public function run()
     {
-
-
         \DB::table('das_menu')->delete();
 
-        \DB::table('das_menu')->insert(array (
-            0 =>
-            array (
+        \DB::table('das_menu')->insert([
+            0 => [
                 'id' => 1,
                 'parent_id' => '0',
                 'name' => 'Data',
@@ -26,11 +22,10 @@ class DasMenuTableSeeder extends Seeder
                 'icon' => 'fa-book',
                 'url' => 'data',
                 'is_active' => 1,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            1 =>
-            array (
+                'created_at' => null,
+                'updated_at' => null,
+            ],
+            1 => [
                 'id' => 2,
                 'parent_id' => '1',
                 'name' => 'Kecamatan',
@@ -38,11 +33,10 @@ class DasMenuTableSeeder extends Seeder
                 'icon' => 'fa-book',
                 'url' => 'data/kecamatan',
                 'is_active' => 1,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            2 =>
-            array (
+                'created_at' => null,
+                'updated_at' => null,
+            ],
+            2 => [
                 'id' => 3,
                 'parent_id' => '1',
                 'name' => 'Penduduk',
@@ -50,11 +44,10 @@ class DasMenuTableSeeder extends Seeder
                 'icon' => 'fa-book',
                 'url' => 'data/penduduk',
                 'is_active' => 1,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            3 =>
-            array (
+                'created_at' => null,
+                'updated_at' => null,
+            ],
+            3 => [
                 'id' => 4,
                 'parent_id' => '1',
                 'name' => 'Kesehatan',
@@ -62,11 +55,10 @@ class DasMenuTableSeeder extends Seeder
                 'icon' => 'fa-book',
                 'url' => 'data/kesehatan',
                 'is_active' => 1,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            4 =>
-            array (
+                'created_at' => null,
+                'updated_at' => null,
+            ],
+            4 => [
                 'id' => 5,
                 'parent_id' => '1',
                 'name' => 'Pendidikan',
@@ -74,11 +66,10 @@ class DasMenuTableSeeder extends Seeder
                 'icon' => 'fa-book',
                 'url' => 'data/pendidikan',
                 'is_active' => 1,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            5 =>
-            array (
+                'created_at' => null,
+                'updated_at' => null,
+            ],
+            5 => [
                 'id' => 6,
                 'parent_id' => '1',
                 'name' => 'Program Bantuan',
@@ -86,11 +77,10 @@ class DasMenuTableSeeder extends Seeder
                 'icon' => 'fa-book',
                 'url' => 'data/program-bantuan',
                 'is_active' => 1,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            6 =>
-            array (
+                'created_at' => null,
+                'updated_at' => null,
+            ],
+            6 => [
                 'id' => 7,
                 'parent_id' => '1',
                 'name' => 'Anggaran & Realisasi',
@@ -98,11 +88,10 @@ class DasMenuTableSeeder extends Seeder
                 'icon' => 'fa-book',
                 'url' => 'data/anggaran-realisasi',
                 'is_active' => 1,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            7 =>
-            array (
+                'created_at' => null,
+                'updated_at' => null,
+            ],
+            7 => [
                 'id' => 8,
                 'parent_id' => '1',
                 'name' => 'Anggaran Desa',
@@ -110,11 +99,10 @@ class DasMenuTableSeeder extends Seeder
                 'icon' => 'fa-book',
                 'url' => 'data/anggaran-desa',
                 'is_active' => 1,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            8 =>
-            array (
+                'created_at' => null,
+                'updated_at' => null,
+            ],
+            8 => [
                 'id' => 9,
                 'parent_id' => '1',
                 'name' => 'Layanan Kecamatan',
@@ -122,11 +110,10 @@ class DasMenuTableSeeder extends Seeder
                 'icon' => 'fa-book',
                 'url' => 'data/layanan',
                 'is_active' => 1,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            9 =>
-            array (
+                'created_at' => null,
+                'updated_at' => null,
+            ],
+            9 => [
                 'id' => 10,
                 'parent_id' => '0',
                 'name' => 'Admin Keluhan',
@@ -134,11 +121,10 @@ class DasMenuTableSeeder extends Seeder
                 'icon' => 'fa-book',
                 'url' => 'admin-komplain',
                 'is_active' => 1,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            10 =>
-            array (
+                'created_at' => null,
+                'updated_at' => null,
+            ],
+            10 => [
                 'id' => 11,
                 'parent_id' => '0',
                 'name' => 'Pengaturan',
@@ -146,11 +132,10 @@ class DasMenuTableSeeder extends Seeder
                 'icon' => 'fa-book',
                 'url' => 'settings',
                 'is_active' => 1,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            11 =>
-            array (
+                'created_at' => null,
+                'updated_at' => null,
+            ],
+            11 => [
                 'id' => 12,
                 'parent_id' => '11',
                 'name' => 'Kategori Komplain',
@@ -158,11 +143,10 @@ class DasMenuTableSeeder extends Seeder
                 'icon' => 'fa-book',
                 'url' => 'setting/kategori-komplain',
                 'is_active' => 1,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            12 =>
-            array (
+                'created_at' => null,
+                'updated_at' => null,
+            ],
+            12 => [
                 'id' => 13,
                 'parent_id' => '11',
                 'name' => 'Tipe Regulasi',
@@ -170,11 +154,10 @@ class DasMenuTableSeeder extends Seeder
                 'icon' => 'fa-book',
                 'url' => 'setting/tipe-regulasi',
                 'is_active' => 1,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            13 =>
-            array (
+                'created_at' => null,
+                'updated_at' => null,
+            ],
+            13 => [
                 'id' => 14,
                 'parent_id' => '11',
                 'name' => 'Jenis Penyakit',
@@ -182,11 +165,10 @@ class DasMenuTableSeeder extends Seeder
                 'icon' => 'fa-book',
                 'url' => 'setting/jenis-penyakit',
                 'is_active' => 1,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            14 =>
-            array (
+                'created_at' => null,
+                'updated_at' => null,
+            ],
+            14 => [
                 'id' => 15,
                 'parent_id' => '11',
                 'name' => 'COA',
@@ -194,11 +176,10 @@ class DasMenuTableSeeder extends Seeder
                 'icon' => 'fa-book',
                 'url' => 'setting/coa',
                 'is_active' => 1,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            15 =>
-            array (
+                'created_at' => null,
+                'updated_at' => null,
+            ],
+            15 => [
                 'id' => 16,
                 'parent_id' => '11',
                 'name' => 'Grup Pengguna',
@@ -206,11 +187,10 @@ class DasMenuTableSeeder extends Seeder
                 'icon' => 'fa-book',
                 'url' => 'setting/role',
                 'is_active' => 1,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            16 =>
-            array (
+                'created_at' => null,
+                'updated_at' => null,
+            ],
+            16 => [
                 'id' => 17,
                 'parent_id' => '11',
                 'name' => 'Pengguna',
@@ -218,11 +198,10 @@ class DasMenuTableSeeder extends Seeder
                 'icon' => 'fa-book',
                 'url' => 'setting/user',
                 'is_active' => 1,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            17 =>
-            array (
+                'created_at' => null,
+                'updated_at' => null,
+            ],
+            17 => [
                 'id' => 18,
                 'parent_id' => '11',
                 'name' => 'Halaman Beranda',
@@ -230,11 +209,9 @@ class DasMenuTableSeeder extends Seeder
                 'icon' => 'fa-book',
                 'url' => 'setting/user',
                 'is_active' => 1,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-        ));
-
-
+                'created_at' => null,
+                'updated_at' => null,
+            ],
+        ]);
     }
 }

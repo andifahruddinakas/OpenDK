@@ -5,32 +5,31 @@ namespace App\Http\Controllers\Data;
 use App\Http\Controllers\Controller;
 use App\Imports\ImporPutusSekolah;
 use App\Models\PutusSekolah;
+use function back;
+use function compact;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Yajra\DataTables\DataTables;
-
-use function back;
-use function compact;
 use function months_list;
 use function redirect;
 use function request;
 use function route;
 use function view;
+use Yajra\DataTables\DataTables;
 use function years_list;
 
 class PutusSekolahController extends Controller
 {
-
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
     }
-    
+
     public function index()
     {
-        
-        $page_title       = 'Anak Putus Sekolah';
-        $page_description = 'Data Anak Putus Sekolah ' . $this->sebutan_wilayah. ' ' .$this->nama_wilayah;
+        $page_title = 'Anak Putus Sekolah';
+        $page_description = 'Data Anak Putus Sekolah '.$this->sebutan_wilayah.' '.$this->nama_wilayah;
+
         return view('data.putus_sekolah.index', compact('page_title', 'page_description'));
     }
 
@@ -43,10 +42,10 @@ class PutusSekolahController extends Controller
     {
         return DataTables::of(PutusSekolah::with(['desa']))
             ->addColumn('actions', function ($row) {
-                $edit_url   = route('data.putus-sekolah.edit', $row->id);
+                $edit_url = route('data.putus-sekolah.edit', $row->id);
                 $delete_url = route('data.putus-sekolah.destroy', $row->id);
 
-                $data['edit_url']   = $edit_url;
+                $data['edit_url'] = $edit_url;
                 $data['delete_url'] = $delete_url;
 
                 return view('forms.action', $data);
@@ -61,10 +60,11 @@ class PutusSekolahController extends Controller
      */
     public function import()
     {
-        $page_title       = 'Import';
+        $page_title = 'Import';
         $page_description = 'Import Data Anak Putus Sekolah';
-        $years_list       = years_list();
-        $months_list      = months_list();
+        $years_list = years_list();
+        $months_list = months_list();
+
         return view('data.putus_sekolah.import', compact('page_title', 'page_description', 'years_list', 'months_list'));
     }
 
@@ -86,7 +86,7 @@ class PutusSekolahController extends Controller
             (new ImporPutusSekolah($request->only(['desa_id', 'semester', 'tahun'])))
                 ->queue($request->file('file'));
         } catch (Exception $e) {
-            return back()->with('error', 'Import data gagal. ' . $e->getMessage());
+            return back()->with('error', 'Import data gagal. '.$e->getMessage());
         }
 
         return back()->with('success', 'Import data sukses.');
@@ -100,9 +100,10 @@ class PutusSekolahController extends Controller
      */
     public function edit($id)
     {
-        $siswa            = PutusSekolah::findOrFail($id);
-        $page_title       = 'Ubah';
+        $siswa = PutusSekolah::findOrFail($id);
+        $page_title = 'Ubah';
         $page_description = 'Ubah Data Anak Putus Sekolah';
+
         return view('data.putus_sekolah.edit', compact('page_title', 'page_description', 'siswa'));
     }
 

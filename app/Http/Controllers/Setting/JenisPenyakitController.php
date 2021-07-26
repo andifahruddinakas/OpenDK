@@ -4,23 +4,23 @@ namespace App\Http\Controllers\Setting;
 
 use App\Http\Controllers\Controller;
 use App\Models\JenisPenyakit;
-use Exception;
-use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
-
 use function back;
 use function compact;
+use Exception;
+use Illuminate\Http\Request;
 use function redirect;
 use function request;
 use function route;
 use function view;
+use Yajra\DataTables\DataTables;
 
 class JenisPenyakitController extends Controller
 {
     public function index()
     {
-        $page_title       = 'Jenis Penyakit';
+        $page_title = 'Jenis Penyakit';
         $page_description = 'Daftar Jenis Epidemi Penyakit';
+
         return view('setting.jenis_penyakit.index', compact('page_title', 'page_description'));
     }
 
@@ -29,10 +29,10 @@ class JenisPenyakitController extends Controller
     {
         return DataTables::of(JenisPenyakit::select(['id', 'nama'])->orderBy('id'))
             ->addColumn('action', function ($row) {
-                $edit_url   = route('setting.jenis-penyakit.edit', $row->id);
+                $edit_url = route('setting.jenis-penyakit.edit', $row->id);
                 $delete_url = route('setting.jenis-penyakit.destroy', $row->id);
 
-                $data['edit_url']   = $edit_url;
+                $data['edit_url'] = $edit_url;
                 $data['delete_url'] = $delete_url;
 
                 return view('forms.action', $data);
@@ -43,7 +43,7 @@ class JenisPenyakitController extends Controller
     // Create Action
     public function create()
     {
-        $page_title       = 'Tambah';
+        $page_title = 'Tambah';
         $page_description = 'Tambah Jenis Penyakit';
 
         return view('setting.jenis_penyakit.create', compact('page_title', 'page_description'));
@@ -60,6 +60,7 @@ class JenisPenyakitController extends Controller
             ]);
 
             $penyakit->save();
+
             return redirect()->route('setting.jenis-penyakit.index')->with('success', 'Data berhasil disimpan!');
         } catch (Exception $e) {
             return back()->withInput()->with('error', 'Data gagal disimpan!');
@@ -68,9 +69,10 @@ class JenisPenyakitController extends Controller
 
     public function edit($id)
     {
-        $penyakit         = JenisPenyakit::findOrFail($id);
-        $page_title       = 'Edit Jenis Penyakit';
-        $page_description = 'Edit Jenis Penyakit ' . $penyakit->nama;
+        $penyakit = JenisPenyakit::findOrFail($id);
+        $page_title = 'Edit Jenis Penyakit';
+        $page_description = 'Edit Jenis Penyakit '.$penyakit->nama;
+
         return view('setting.jenis_penyakit.edit', compact('page_title', 'page_description', 'penyakit'));
     }
 
@@ -86,6 +88,7 @@ class JenisPenyakitController extends Controller
             ]);
 
             $penyakit->save();
+
             return redirect()->route('setting.jenis-penyakit.index')->with('success', 'Data berhasil diupdate!');
         } catch (Exception $e) {
             return back()->withInput()->with('error', 'Data gagal diupdate!');

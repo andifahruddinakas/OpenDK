@@ -4,24 +4,24 @@ namespace App\Http\Controllers\Setting;
 
 use App\Http\Controllers\Controller;
 use App\Models\KategoriKomplain;
-use Exception;
-use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
-
 use function back;
 use function compact;
+use Exception;
+use Illuminate\Http\Request;
 use function redirect;
 use function request;
 use function route;
 use function str_slug;
 use function view;
+use Yajra\DataTables\DataTables;
 
 class KategoriKomplainController extends Controller
 {
     public function index()
     {
-        $page_title       = 'Kategori Komplain';
+        $page_title = 'Kategori Komplain';
         $page_description = 'Daftar Kategori Komplain';
+
         return view('setting.komplain_kategori.index', compact('page_title', 'page_description'));
     }
 
@@ -30,10 +30,10 @@ class KategoriKomplainController extends Controller
     {
         return DataTables::of(KategoriKomplain::select(['id', 'nama'])->orderBy('id'))
             ->addColumn('action', function ($row) {
-                $edit_url   = route('setting.komplain-kategori.edit', $row->id);
+                $edit_url = route('setting.komplain-kategori.edit', $row->id);
                 $delete_url = route('setting.komplain-kategori.destroy', $row->id);
 
-                $data['edit_url']   = $edit_url;
+                $data['edit_url'] = $edit_url;
                 $data['delete_url'] = $delete_url;
 
                 return view('forms.action', $data);
@@ -44,7 +44,7 @@ class KategoriKomplainController extends Controller
     // Create Action
     public function create()
     {
-        $page_title       = 'Tambah';
+        $page_title = 'Tambah';
         $page_description = 'Tambah Kategori Komplain';
 
         return view('setting.komplain_kategori.create', compact('page_title', 'page_description'));
@@ -54,7 +54,7 @@ class KategoriKomplainController extends Controller
     public function store(Request $request)
     {
         try {
-            $kategori       = new KategoriKomplain($request->all());
+            $kategori = new KategoriKomplain($request->all());
             $kategori->slug = str_slug($kategori->nama);
 
             request()->validate([
@@ -62,6 +62,7 @@ class KategoriKomplainController extends Controller
             ]);
 
             $kategori->save();
+
             return redirect()->route('setting.komplain-kategori.index')->with('success', 'Kategori Komplain berhasil dikirim!');
         } catch (Exception $e) {
             return back()->withInput()->with('error', 'Kategori Komplain gagal dikirim!');
@@ -70,9 +71,10 @@ class KategoriKomplainController extends Controller
 
     public function edit($id)
     {
-        $kategori         = KategoriKomplain::findOrFail($id);
-        $page_title       = 'Edit Kategori';
-        $page_description = 'Edit Kategori Komplain ' . $kategori->nama;
+        $kategori = KategoriKomplain::findOrFail($id);
+        $page_title = 'Edit Kategori';
+        $page_description = 'Edit Kategori Komplain '.$kategori->nama;
+
         return view('setting.komplain_kategori.edit', compact('page_title', 'page_description', 'kategori'));
     }
 
@@ -88,6 +90,7 @@ class KategoriKomplainController extends Controller
             ]);
 
             $kategori->save();
+
             return redirect()->route('setting.komplain-kategori.index')->with('success', 'Kategori Komplain berhasil diupdate!');
         } catch (Exception $e) {
             return back()->withInput()->with('error', 'Kategori Komplain gagal diupdate!');

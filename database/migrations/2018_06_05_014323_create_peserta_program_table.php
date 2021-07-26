@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreatePesertaProgramTable extends Migration
 {
@@ -15,7 +15,7 @@ class CreatePesertaProgramTable extends Migration
     {
         Schema::create('das_peserta_program', function (Blueprint $table) {
             $table->increments('id');
-            $table->char('peserta',16);
+            $table->char('peserta', 16);
             $table->integer('program_id');
             $table->tinyInteger('sasaran')->nullable()->unsigned();
             $table->string('no_id_kartu', 30)->nullable();

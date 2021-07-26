@@ -6,29 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Imports\ImporPenduduk;
 use App\Models\DataDesa;
 use App\Models\Penduduk;
-use Doctrine\DBAL\Query\QueryException;
+use function back;
+use function compact;
+use function config;
+use function convert_born_date_to_age;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Yajra\DataTables\DataTables;
-use Barryvdh\Debugbar\Facade as Debugbar;
-
-use ZipArchive;
-
-use function back;
-use function compact;
-use function config;
-use function convert_born_date_to_age;
-use function redirect;
 use function request;
 use function route;
 use function strtolower;
-use function substr;
 use function ucwords;
 use function view;
+use Yajra\DataTables\DataTables;
+use ZipArchive;
 
 class PendudukController extends Controller
 {
@@ -39,9 +33,9 @@ class PendudukController extends Controller
      */
     public function index(Penduduk $penduduk)
     {
-        $page_title       = 'Penduduk';
+        $page_title = 'Penduduk';
         $page_description = 'Data Penduduk';
-        $list_desa        = DataDesa::get();
+        $list_desa = DataDesa::get();
 
         return view('data.penduduk.index', compact('page_title', 'page_description', 'list_desa'));
     }
@@ -83,9 +77,9 @@ class PendudukController extends Controller
 
         return DataTables::of($query)
             ->addColumn('action', function ($row) {
-                $show_url   = route('data.penduduk.show', $row->id);
+                $show_url = route('data.penduduk.show', $row->id);
 
-                $data['show_url']   = $show_url;
+                $data['show_url'] = $show_url;
 
                 return view('forms.action', $data);
             })
@@ -106,8 +100,8 @@ class PendudukController extends Controller
         if ($penduduk->foto == '') {
             $penduduk->file_struktur_organisasi = 'http://placehold.it/120x150';
         }
-        $page_title       = 'Detail Penduduk';
-        $page_description = 'Detail Data Penduduk: ' . ucwords(strtolower($penduduk->nama));
+        $page_title = 'Detail Penduduk';
+        $page_description = 'Detail Data Penduduk: '.ucwords(strtolower($penduduk->nama));
 
         return view('data.penduduk.show', compact('page_title', 'page_description', 'penduduk'));
     }
@@ -119,16 +113,17 @@ class PendudukController extends Controller
      */
     public function import()
     {
-        $page_title       = 'Impor';
+        $page_title = 'Impor';
         $page_description = 'Impor Data Penduduk';
 
         $list_desa = DB::table('das_data_desa')->select('*')->where('kecamatan_id', '=', config('app.default_profile'))->get();
+
         return view('data.penduduk.import', compact('page_title', 'page_description', 'list_desa'));
     }
 
     /**
      * Impor data penduduk dari file Excel.
-     * Kalau penduduk sudah ada (berdasarkan NIK), update dengan data yg diimpor
+     * Kalau penduduk sudah ada (berdasarkan NIK), update dengan data yg diimpor.
      *
      * @return Response
      */
@@ -155,15 +150,15 @@ class PendudukController extends Controller
 
             // Proses impor excell
             (new ImporPenduduk())
-                ->queue($extract . $excellName = Str::replaceLast('zip', 'xlsx', $name));
+                ->queue($extract.$excellName = Str::replaceLast('zip', 'xlsx', $name));
         } catch (Exception $e) {
-            return back()->with('error', 'Import data gagal. ' . $e->getMessage());
+            return back()->with('error', 'Import data gagal. '.$e->getMessage());
         }
 
         // Hapus folder temp ketika sudah selesai
         Storage::deleteDirectory('temp');
         // Hapus file excell temp ketika sudah selesai
-        Storage::disk('public')->delete('penduduk/foto/' . $excellName);
+        Storage::disk('public')->delete('penduduk/foto/'.$excellName);
 
         return back()->with('success', 'Import data sukses.');
     }

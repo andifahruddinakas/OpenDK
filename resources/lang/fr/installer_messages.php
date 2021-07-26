@@ -3,9 +3,7 @@
 return [
 
     /**
-     *
      * Shared translations.
-     *
      */
     'title' => 'Installateur de Laravel',
     'next' => 'Suivant',
@@ -15,11 +13,8 @@ return [
         'errorTitle' => 'Les erreurs suivantes sont survenues:',
     ],
 
-
     /**
-     *
      * Home page translations.
-     *
      */
     'welcome' => [
         'title'   => 'Bienvenue dans l’installateur...',
@@ -27,11 +22,8 @@ return [
         'next'    => 'Vérifier les prérequis',
     ],
 
-
     /**
-     *
      * Requirements page translations.
-     *
      */
     'requirements' => [
         'templateTitle' => 'Étape 1 | Prérequis du serveur',
@@ -39,11 +31,8 @@ return [
         'next'    => 'Vérifier les Permissions',
     ],
 
-
     /**
-     *
      * Permissions page translations.
-     *
      */
     'permissions' => [
         'templateTitle' => 'Étape 2 | Permissions',
@@ -51,11 +40,8 @@ return [
         'next' => 'Configurer l\'Environment',
     ],
 
-
     /**
-     *
      * Environment page translations.
-     *
      */
     'environment' => [
         'menu' => [
@@ -71,7 +57,7 @@ return [
             'tabs' => [
                 'environment' => 'Environnement',
                 'database' => 'Base de donnée',
-                'application' => 'Application'
+                'application' => 'Application',
             ],
             'form' => [
                 'name_required' => 'Un nom d\'environnement est requis.',
@@ -172,11 +158,8 @@ return [
 
     'install' => 'Installer',
 
-
     /**
-     *
      * Final page translations.
-     *
      */
     'final' => [
         'title' => 'Terminé',
@@ -190,22 +173,16 @@ return [
     ],
 
     /**
-     *
-     * Update specific translations
-     *
+     * Update specific translations.
      */
     'updater' => [
         /**
-         *
          * Shared translations.
-         *
          */
         'title' => 'Mise à jour de Laravel',
 
         /**
-         *
          * Welcome page translations for update feature.
-         *
          */
         'welcome' => [
             'title'   => 'Bienvenue dans l\'updateur...',
@@ -213,20 +190,16 @@ return [
         ],
 
         /**
-         *
          * Welcome page translations for update feature.
-         *
          */
         'overview' => [
             'title'   => 'Aperçu',
             'message' => 'Il y a 1 mise à jour.|Il y a :number mises à jour.',
-            'install_updates' => "Installer la mise à jour"
+            'install_updates' => 'Installer la mise à jour',
         ],
 
         /**
-         *
          * Final page translations.
-         *
          */
         'final' => [
             'title' => 'Terminé',

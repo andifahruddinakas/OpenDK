@@ -4,7 +4,7 @@ return [
 
     /**
      * What attributes do we use to build the slug?
-     * This can be a single field, like "name" which will build a slug from:
+     * This can be a single field, like "name" which will build a slug from:.
      *
      *     $model->name;
      *
@@ -17,7 +17,6 @@ return [
      *
      * Defaults to null, which uses the toString() method on your model.
      */
-
     'source' => null,
 
     /**
@@ -25,7 +24,6 @@ return [
      * no length restrictions are enforced.  Set it to a positive integer if you
      * want to make sure your slugs aren't too long.
      */
-
     'maxLength' => null,
 
     /**
@@ -43,25 +41,22 @@ return [
      *
      *    'method' => array('Str','slug'),
      */
-
     'method' => null,
 
     /**
      * Separator to use when generating slugs.  Defaults to a hyphen.
      */
-
     'separator' => '-',
 
     /**
      * Enforce uniqueness of slugs?  Defaults to true.
      * If a generated slug already exists, an incremental numeric
-     * value will be appended to the end until a unique slug is found.  e.g.:
+     * value will be appended to the end until a unique slug is found.  e.g.:.
      *
      *     my-slug
      *     my-slug-1
      *     my-slug-2
      */
-
     'unique' => true,
 
     /**
@@ -72,7 +67,6 @@ return [
      * "similar" slugs.  The closure should return the new unique
      * suffix to append to the slug.
      */
-    
     'uniqueSuffix' => null,
 
     /**
@@ -81,14 +75,13 @@ return [
      * If set to "false", then a new slug could duplicate one that exists on a trashed model.
      * If set to "true", then uniqueness is enforced across trashed and existing models.
      */
-
     'includeTrashed' => false,
 
     /**
      * An array of slug names that can never be used for this model,
      * e.g. to prevent collisions with existing routes or controller methods, etc..
      * Defaults to null (i.e. no reserved names).
-     * Can be a static array, e.g.:
+     * Can be a static array, e.g.:.
      *
      *    'reserved' => array('add', 'delete'),
      *
@@ -107,7 +100,6 @@ return [
      *
      * and continue from there.
      */
-
     'reserved' => null,
 
     /**
@@ -120,7 +112,6 @@ return [
      * is probably not a good idea from an SEO point of view.
      * Only set this to true if you understand the possible consequences.
      */
-    
     'onUpdate' => false,
 
 ];

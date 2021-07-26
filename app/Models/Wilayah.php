@@ -4,16 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-
 use function sprintf;
 
 class Wilayah extends Model
 {
     /** @var string konstan panjang kode */
-    const PROVINSI  = 2;
+    const PROVINSI = 2;
     const KABUPATEN = 5;
     const KECAMATAN = 8;
-    const DESA      = 13;
+    const DESA = 13;
 
     protected $primaryKey = 'kode';
 

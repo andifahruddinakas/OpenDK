@@ -6,23 +6,21 @@ use App\Http\Controllers\Controller;
 use App\Imports\ImporEpidemiPenyakit;
 use App\Models\EpidemiPenyakit;
 use App\Models\JenisPenyakit;
+use function back;
+use function compact;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Yajra\DataTables\Facades\DataTables;
-
-use function back;
-use function compact;
 use function months_list;
 use function redirect;
 use function request;
 use function route;
 use function view;
+use Yajra\DataTables\Facades\DataTables;
 use function years_list;
 
 class EpidemiPenyakitController extends Controller
 {
-    
     public function __construct()
     {
         parent::__construct();
@@ -35,8 +33,9 @@ class EpidemiPenyakitController extends Controller
      */
     public function index()
     {
-        $page_title       = 'Epidemi Penyakit';
-        $page_description = 'Data Epidemi Penyakit ' . $this->sebutan_wilayah. ' ' .$this->nama_wilayah;
+        $page_title = 'Epidemi Penyakit';
+        $page_description = 'Data Epidemi Penyakit '.$this->sebutan_wilayah.' '.$this->nama_wilayah;
+
         return view('data.epidemi_penyakit.index', compact('page_title', 'page_description'));
     }
 
@@ -49,10 +48,10 @@ class EpidemiPenyakitController extends Controller
     {
         return DataTables::of(EpidemiPenyakit::with(['penyakit', 'desa']))
             ->addColumn('actions', function ($row) {
-                $edit_url   = route('data.epidemi-penyakit.edit', $row->id);
+                $edit_url = route('data.epidemi-penyakit.edit', $row->id);
                 $delete_url = route('data.epidemi-penyakit.destroy', $row->id);
 
-                $data['edit_url']   = $edit_url;
+                $data['edit_url'] = $edit_url;
                 $data['delete_url'] = $delete_url;
 
                 return view('forms.action', $data);
@@ -70,11 +69,12 @@ class EpidemiPenyakitController extends Controller
      */
     public function import()
     {
-        $page_title       = 'Import';
+        $page_title = 'Import';
         $page_description = 'Import Data Epidemi Penyakit';
-        $years_list       = years_list();
-        $months_list      = months_list();
-        $jenis_penyakit   = JenisPenyakit::pluck('nama', 'id');
+        $years_list = years_list();
+        $months_list = months_list();
+        $jenis_penyakit = JenisPenyakit::pluck('nama', 'id');
+
         return view('data.epidemi_penyakit.import', compact('page_title', 'page_description', 'years_list', 'months_list', 'jenis_penyakit'));
     }
 
@@ -95,7 +95,7 @@ class EpidemiPenyakitController extends Controller
             (new ImporEpidemiPenyakit($request->only('penyakit_id', 'bulan', 'tahun')))
                 ->queue($request->file('file'));
         } catch (Exception $e) {
-            return back()->with('error', 'Import data gagal. ' . $e->getMessage());
+            return back()->with('error', 'Import data gagal. '.$e->getMessage());
         }
 
         return back()->with('success', 'Import data sukses.');
@@ -109,10 +109,11 @@ class EpidemiPenyakitController extends Controller
      */
     public function edit($id)
     {
-        $epidemi          = EpidemiPenyakit::findOrFail($id);
-        $page_title       = 'Ubah';
-        $page_description = 'Ubah Data Epidemi Penyakit: ' . $epidemi->penyakit->nama;
-        $jenis_penyakit   = JenisPenyakit::pluck('nama', 'id');
+        $epidemi = EpidemiPenyakit::findOrFail($id);
+        $page_title = 'Ubah';
+        $page_description = 'Ubah Data Epidemi Penyakit: '.$epidemi->penyakit->nama;
+        $jenis_penyakit = JenisPenyakit::pluck('nama', 'id');
+
         return view('data.epidemi_penyakit.edit', compact('page_title', 'page_description', 'epidemi', 'jenis_penyakit'));
     }
 

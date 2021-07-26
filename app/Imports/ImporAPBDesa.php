@@ -13,7 +13,7 @@ class ImporAPBDesa implements ToModel, WithHeadingRow, WithChunkReading, ShouldQ
 {
     use Importable;
 
-    /** @var $request */
+    /** @var */
     protected $request;
 
     public function __construct(array $request)

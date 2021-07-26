@@ -5,18 +5,17 @@ namespace App\Http\Controllers\Data;
 use App\Http\Controllers\Controller;
 use App\Imports\ImporAKIAKB;
 use App\Models\AkiAkb;
+use function back;
+use function compact;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Yajra\DataTables\Facades\DataTables;
-
-use function back;
-use function compact;
 use function months_list;
 use function redirect;
 use function request;
 use function route;
 use function view;
+use Yajra\DataTables\Facades\DataTables;
 use function years_list;
 
 class AKIAKBController extends Controller
@@ -36,8 +35,9 @@ class AKIAKBController extends Controller
      */
     public function index()
     {
-        $page_title       = 'AKI & AKB';
-        $page_description = 'Data Kematian Ibu & Bayi ' . $this->sebutan_wilayah. ' ' .$this->nama_wilayah;
+        $page_title = 'AKI & AKB';
+        $page_description = 'Data Kematian Ibu & Bayi '.$this->sebutan_wilayah.' '.$this->nama_wilayah;
+
         return view('data.aki_akb.index', compact('page_title', 'page_description'));
     }
 
@@ -50,10 +50,10 @@ class AKIAKBController extends Controller
     {
         return DataTables::of(AkiAkb::with(['desa']))
             ->addColumn('actions', function ($row) {
-                $edit_url   = route('data.aki-akb.edit', $row->id);
+                $edit_url = route('data.aki-akb.edit', $row->id);
                 $delete_url = route('data.aki-akb.destroy', $row->id);
 
-                $data['edit_url']   = $edit_url;
+                $data['edit_url'] = $edit_url;
                 $data['delete_url'] = $delete_url;
 
                 return view('forms.action', $data);
@@ -71,10 +71,11 @@ class AKIAKBController extends Controller
      */
     public function import()
     {
-        $page_title       = 'Import';
+        $page_title = 'Import';
         $page_description = 'Import Data AKI & AKB';
-        $years_list       = years_list();
-        $months_list      = months_list();
+        $years_list = years_list();
+        $months_list = months_list();
+
         return view('data.aki_akb.import', compact('page_title', 'page_description', 'years_list', 'months_list'));
     }
 
@@ -95,7 +96,7 @@ class AKIAKBController extends Controller
             (new ImporAKIAKB($request->only(['bulan', 'tahun'])))
                 ->queue($request->file('file'));
         } catch (Exception $e) {
-            return back()->with('error', 'Import data gagal. ' . $e->getMessage());
+            return back()->with('error', 'Import data gagal. '.$e->getMessage());
         }
 
         return back()->with('success', 'Import data sukses.');
@@ -109,9 +110,9 @@ class AKIAKBController extends Controller
      */
     public function edit($id)
     {
-        $akib             = AkiAkb::findOrFail($id);
-        $page_title       = 'Ubah';
-        $page_description = 'Ubah Data AKI & AKB: ' . $akib->id;
+        $akib = AkiAkb::findOrFail($id);
+        $page_title = 'Ubah';
+        $page_description = 'Ubah Data AKI & AKB: '.$akib->id;
 
         return view('data.aki_akb.edit', compact('page_title', 'page_description', 'akib'));
     }

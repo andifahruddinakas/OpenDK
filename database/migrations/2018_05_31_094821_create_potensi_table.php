@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreatePotensiTable extends Migration
 {
@@ -20,8 +20,8 @@ class CreatePotensiTable extends Migration
             $table->text('deskripsi');
             $table->string('lokasi', 200);
             $table->string('file_gambar', 255)->nullable();
-            $table->decimal('long',15,12)->nullable();
-            $table->decimal('lat',15,12)->nullable();
+            $table->decimal('long', 15, 12)->nullable();
+            $table->decimal('lat', 15, 12)->nullable();
             $table->timestamps();
         });
     }

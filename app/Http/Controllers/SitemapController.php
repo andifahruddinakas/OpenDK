@@ -6,17 +6,16 @@ use App\Models\FormDokumen;
 use App\Models\Profil;
 use App\Models\Prosedur;
 use App\Models\Regulasi;
-
 use function response;
 
 class SitemapController extends Controller
 {
     public function index()
     {
-        $profil   = Profil::orderBy('updated_at', 'DESC')->first();
+        $profil = Profil::orderBy('updated_at', 'DESC')->first();
         $prosedur = Prosedur::orderBy('updated_at', 'DESC')->first();
         $regulasi = Regulasi::orderBy('updated_at', 'DESC')->first();
-        $dokumen  = FormDokumen::orderBy('updated_at', 'DESC')->first();
+        $dokumen = FormDokumen::orderBy('updated_at', 'DESC')->first();
 
         return response()->view('sitemap.index', [
             'profil'   => $profil,
@@ -29,6 +28,7 @@ class SitemapController extends Controller
     public function prosedur()
     {
         $prosedurs = Prosedur::all();
+
         return response()->view('sitemap.prosedur', [
             'prosedurs' => $prosedurs,
         ])->header('Content-Type', 'text/xml');

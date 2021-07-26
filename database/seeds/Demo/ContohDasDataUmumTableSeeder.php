@@ -14,7 +14,6 @@ class ContohDasDataUmumTableSeeder extends Seeder
      */
     public function run()
     {
-
         $kecamatan_id = config('app.default_profile');
 
         DB::table('das_data_umum')->truncate();

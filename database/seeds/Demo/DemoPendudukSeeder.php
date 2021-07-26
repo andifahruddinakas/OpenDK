@@ -6,7 +6,6 @@ use App\Imports\ImporPenduduk;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
-
 use ZipArchive;
 
 class DemoPendudukSeeder extends Seeder

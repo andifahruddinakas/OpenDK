@@ -3,9 +3,7 @@
 return [
 
     /**
-     *
      * Shared translations.
-     *
      */
     'title' => 'Kurulum',
     'next' => 'Sonraki Adım',
@@ -16,9 +14,7 @@ return [
     ],
 
     /**
-     *
      * Home page translations.
-     *
      */
     'welcome' => [
         'templateTitle' => 'Kurulum\'a Hoşgeldiniz',
@@ -28,9 +24,7 @@ return [
     ],
 
     /**
-     *
      * Requirements page translations.
-     *
      */
     'requirements' => [
         'templateTitle' => 'Adım 1 | Sunucu Gereksinimleri',
@@ -39,9 +33,7 @@ return [
     ],
 
     /**
-     *
      * Permissions page translations.
-     *
      */
     'permissions' => [
         'templateTitle' => 'Adım 2 | İzinler',
@@ -50,9 +42,7 @@ return [
     ],
 
     /**
-     *
      * Environment page translations.
-     *
      */
     'environment' => [
         'menu' => [
@@ -68,7 +58,7 @@ return [
             'tabs' => [
                 'environment' => 'Ortam',
                 'database' => 'Veritabanı',
-                'application' => 'Uygulama'
+                'application' => 'Uygulama',
             ],
             'form' => [
                 'name_required' => 'Bir ortam adı gerekiyor.',
@@ -125,7 +115,7 @@ return [
                     'redis_host' => 'Redis Host',
                     'redis_password' => 'Redis Şifre',
                     'redis_port' => 'Redis Port',
-                    
+
                     'mail_label' => 'Mail',
                     'mail_driver_label' => 'Posta Sürücüsü',
                     'mail_driver_placeholder' => 'Posta Sürücüsü',
@@ -139,7 +129,7 @@ return [
                     'mail_password_placeholder' => 'Posta Parolası',
                     'mail_encryption_label' => 'Posta Güvenlik Türü',
                     'mail_encryption_placeholder' => 'Posta Güvenlik Türü',
-                    
+
                     'pusher_label' => 'Pusher',
                     'pusher_app_id_label' => 'İtici Uygulama Kimliği',
                     'pusher_app_id_palceholder' => 'İtici Uygulama Kimliği',
@@ -169,18 +159,14 @@ return [
     'install' => 'Kurulum',
 
     /**
-     *
      * Installed Log translations.
-     *
      */
     'installed' => [
         'success_log_message' => 'Uygulama başarıyla KURULDU ',
     ],
 
     /**
-     *
      * Final page translations.
-     *
      */
     'final' => [
         'title' => 'Kurulum Bitti',
@@ -194,22 +180,16 @@ return [
     ],
 
     /**
-     *
-     * Update specific translations
-     *
+     * Update specific translations.
      */
     'updater' => [
         /**
-         *
          * Shared translations.
-         *
          */
         'title' => 'Güncelleyici',
 
         /**
-         *
          * Welcome page translations for update feature.
-         *
          */
         'welcome' => [
             'title' => 'Güncelleyiciye Hoş Geldiniz',
@@ -217,20 +197,16 @@ return [
         ],
 
         /**
-         *
          * Welcome page translations for update feature.
-         *
          */
         'overview' => [
             'title'   => 'Genel bakış',
             'message' => '1 güncelleme var.| :number güncellemeleri var.',
-            'install_updates' => "Güncellemeyi yükle"
+            'install_updates' => 'Güncellemeyi yükle',
         ],
 
         /**
-         *
          * Final page translations.
-         *
          */
         'final' => [
             'title' => 'Tamamlandı',
