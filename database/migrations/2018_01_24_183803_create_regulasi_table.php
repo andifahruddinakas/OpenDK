@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateRegulasiTable extends Migration
 {
@@ -15,7 +15,7 @@ class CreateRegulasiTable extends Migration
     {
         Schema::create('das_regulasi', function (Blueprint $table) {
             $table->increments('id');
-            $table->char('kecamatan_id',7);
+            $table->char('kecamatan_id', 7);
             $table->string('tipe_regulasi', 30);
             $table->string('judul', 200);
             $table->text('deskripsi');

@@ -3,14 +3,13 @@
 namespace App\Imports;
 
 use App\Models\Penduduk;
+use function config;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-
-use function config;
 use function substr;
 
 class SinkronPenduduk implements ToCollection, WithHeadingRow, WithChunkReading, ShouldQueue
@@ -25,7 +24,7 @@ class SinkronPenduduk implements ToCollection, WithHeadingRow, WithChunkReading,
     public function __construct()
     {
         $this->kecamatan_id = config('app.default_profile');
-        $this->provinsi_id  = substr($this->kecamatan_id, 0, 2);
+        $this->provinsi_id = substr($this->kecamatan_id, 0, 2);
         $this->kabupaten_id = substr($this->kecamatan_id, 0, 5);
     }
 
@@ -95,7 +94,7 @@ class SinkronPenduduk implements ToCollection, WithHeadingRow, WithChunkReading,
 
             Penduduk::updateOrInsert([
                 'desa_id'      => $insert['desa_id'],
-                'id_pend_desa' => $insert['id_pend_desa']
+                'id_pend_desa' => $insert['id_pend_desa'],
             ], $insert);
         }
     }

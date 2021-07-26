@@ -4,56 +4,44 @@ use Illuminate\Database\Seeder;
 
 class RefAgamaTableSeeder extends Seeder
 {
-
     /**
-     * Auto generated seed file
+     * Auto generated seed file.
      *
      * @return void
      */
     public function run()
     {
-        
-
         \DB::table('ref_agama')->delete();
-        
-        \DB::table('ref_agama')->insert(array (
-            0 => 
-            array (
-                'id' => 1,
+
+        \DB::table('ref_agama')->insert([
+            0 => [
+                'id'   => 1,
                 'nama' => 'ISLAM',
-            ),
-            1 => 
-            array (
-                'id' => 2,
+            ],
+            1 => [
+                'id'   => 2,
                 'nama' => 'KRISTEN',
-            ),
-            2 => 
-            array (
-                'id' => 3,
+            ],
+            2 => [
+                'id'   => 3,
                 'nama' => 'KATHOLIK',
-            ),
-            3 => 
-            array (
-                'id' => 4,
+            ],
+            3 => [
+                'id'   => 4,
                 'nama' => 'HINDU',
-            ),
-            4 => 
-            array (
-                'id' => 5,
+            ],
+            4 => [
+                'id'   => 5,
                 'nama' => 'BUDHA',
-            ),
-            5 => 
-            array (
-                'id' => 6,
+            ],
+            5 => [
+                'id'   => 6,
                 'nama' => 'KHONGHUCU',
-            ),
-            6 => 
-            array (
-                'id' => 7,
+            ],
+            6 => [
+                'id'   => 7,
                 'nama' => 'Lainnya',
-            ),
-        ));
-        
-        
+            ],
+        ]);
     }
 }

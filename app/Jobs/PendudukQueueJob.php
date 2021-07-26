@@ -10,8 +10,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class PendudukQueueJob implements ShouldQueue
 {
@@ -27,6 +27,7 @@ class PendudukQueueJob implements ShouldQueue
      * Create a new job instance.
      *
      * @param array $request
+     *
      * @return void
      */
     public function __construct($request)
@@ -68,7 +69,7 @@ class PendudukQueueJob implements ShouldQueue
 
                 // Hapus file foto di folder
                 foreach ($foto as $hapusfoto) {
-                  Storage::disk('public')->delete('penduduk/foto/' . 'kecil_' . $hapusfoto);
+                    Storage::disk('public')->delete('penduduk/foto/'.'kecil_'.$hapusfoto);
                 }
             }
 

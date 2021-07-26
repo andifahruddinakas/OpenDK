@@ -5,19 +5,18 @@ namespace App\Http\Controllers\Data;
 use App\Http\Controllers\Controller;
 use App\Imports\ImporAnggaranRealisasi;
 use App\Models\AnggaranRealisasi;
+use function back;
+use function compact;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Yajra\DataTables\Facades\DataTables;
-
-use function back;
-use function compact;
 use function months_list;
 use function redirect;
 use function request;
 use function route;
 use function view;
+use Yajra\DataTables\Facades\DataTables;
 use function years_list;
 
 class AnggaranRealisasiController extends Controller
@@ -29,8 +28,9 @@ class AnggaranRealisasiController extends Controller
 
     public function index()
     {
-        $page_title       = 'Anggran & Realisasi';
+        $page_title = 'Anggran & Realisasi';
         $page_description = 'Data Anggran & Realisasi';
+
         return view('data.anggaran_realisasi.index', compact('page_title', 'page_description'));
     }
 
@@ -43,10 +43,10 @@ class AnggaranRealisasiController extends Controller
     {
         return DataTables::of(AnggaranRealisasi::query())
             ->addColumn('actions', function ($row) {
-                $edit_url   = route('data.anggaran-realisasi.edit', $row->id);
+                $edit_url = route('data.anggaran-realisasi.edit', $row->id);
                 $delete_url = route('data.anggaran-realisasi.destroy', $row->id);
 
-                $data['edit_url']   = $edit_url;
+                $data['edit_url'] = $edit_url;
                 $data['delete_url'] = $delete_url;
 
                 return view('forms.action', $data);
@@ -63,10 +63,11 @@ class AnggaranRealisasiController extends Controller
      */
     public function import()
     {
-        $page_title       = 'Import';
+        $page_title = 'Import';
         $page_description = 'Import Data Anggaran & Realisasi';
-        $years_list       = years_list();
-        $months_list      = months_list();
+        $years_list = years_list();
+        $months_list = months_list();
+
         return view('data.anggaran_realisasi.import', compact('page_title', 'page_description', 'years_list', 'months_list'));
     }
 
@@ -87,7 +88,7 @@ class AnggaranRealisasiController extends Controller
             (new ImporAnggaranRealisasi($request->all()))
                 ->queue($request->file('file'));
         } catch (Exception $e) {
-            return back()->with('error', 'Import data gagal. ' . $e->getMessage());
+            return back()->with('error', 'Import data gagal. '.$e->getMessage());
         }
 
         return back()->with('success', 'Import data sukses.');
@@ -96,14 +97,15 @@ class AnggaranRealisasiController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit($id)
     {
-        $anggaran         = AnggaranRealisasi::findOrFail($id);
-        $page_title       = 'Ubah';
-        $page_description = 'Ubah Data Anggaran & Realisasi: ' . $anggaran->id;
+        $anggaran = AnggaranRealisasi::findOrFail($id);
+        $page_title = 'Ubah';
+        $page_description = 'Ubah Data Anggaran & Realisasi: '.$anggaran->id;
 
         return view('data.anggaran_realisasi.edit', compact('page_title', 'page_description', 'anggaran'));
     }
@@ -111,7 +113,8 @@ class AnggaranRealisasiController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function update(Request $request, $id)
@@ -139,7 +142,8 @@ class AnggaranRealisasiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)

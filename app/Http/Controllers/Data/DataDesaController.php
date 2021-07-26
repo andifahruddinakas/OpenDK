@@ -5,29 +5,28 @@ namespace App\Http\Controllers\Data;
 use App\Http\Controllers\Controller;
 use App\Models\DataDesa;
 use App\Models\Profil;
-use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Yajra\DataTables\DataTables;
-
 use function back;
 use function compact;
 use function config;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use function redirect;
 use function request;
 use function route;
 use function view;
+use Yajra\DataTables\DataTables;
 
 class DataDesaController extends Controller
 {
-  /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
     public function index()
     {
-        $page_title       = 'Data Desa';
+        $page_title = 'Data Desa';
         $page_description = 'Daftar Desa';
 
         return view('data.data_desa.index', compact('page_title', 'page_description'));
@@ -40,10 +39,11 @@ class DataDesaController extends Controller
      */
     public function create()
     {
-        $page_title       = 'Tambah';
+        $page_title = 'Tambah';
         $page_description = 'Tambah Data Desa';
-        $list_kecamatan   = Profil::with('kecamatan')->orderBy('kecamatan_id', 'desc')->get();
-        $defaultProfil    = config('app.default_profile');
+        $list_kecamatan = Profil::with('kecamatan')->orderBy('kecamatan_id', 'desc')->get();
+        $defaultProfil = config('app.default_profile');
+
         return view('data.data_desa.create', compact('page_title', 'page_description', 'list_kecamatan', 'defaultProfil'));
     }
 
@@ -76,7 +76,8 @@ class DataDesaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
@@ -86,23 +87,26 @@ class DataDesaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit($id)
     {
-        $desa             = DataDesa::findOrFail($id);
-        $page_title       = 'Ubah';
-        $page_description = 'Ubah Data Desa : ' . $desa->nama;
-        $list_kecamatan   = Profil::with('kecamatan')->orderBy('kecamatan_id', 'desc')->get();
-        $defaultProfil    = config('app.default_profile');
+        $desa = DataDesa::findOrFail($id);
+        $page_title = 'Ubah';
+        $page_description = 'Ubah Data Desa : '.$desa->nama;
+        $list_kecamatan = Profil::with('kecamatan')->orderBy('kecamatan_id', 'desc')->get();
+        $defaultProfil = config('app.default_profile');
+
         return view('data.data_desa.edit', compact('page_title', 'page_description', 'desa', 'list_kecamatan', 'defaultProfil'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function update(Request $request, $id)
@@ -110,6 +114,7 @@ class DataDesaController extends Controller
         $desa = DataDesa::findOrFail($id);
         $desa->fill($request->all());
         $desa->kecamatan_id = config('app.default_profile');
+
         try {
             request()->validate([
                 'nama'         => 'required',
@@ -127,7 +132,8 @@ class DataDesaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)
@@ -146,16 +152,16 @@ class DataDesaController extends Controller
         return DataTables::of(DataDesa::select(['id', 'desa_id', 'nama', 'website', 'luas_wilayah'])
             ->where('kecamatan_id', config('app.default_profile')))
             ->addColumn('action', function ($row) {
-                $edit_url   = route('data.data-desa.edit', $row->id);
+                $edit_url = route('data.data-desa.edit', $row->id);
                 $delete_url = route('data.data-desa.destroy', $row->id);
 
-                $data['edit_url']   = $edit_url;
+                $data['edit_url'] = $edit_url;
                 $data['delete_url'] = $delete_url;
 
                 return view('forms.action', $data);
             })
             ->editColumn('website', function ($row) {
-                return '<a href="' . $row->website . '" target="_blank">' . $row->website . '</a>';
+                return '<a href="'.$row->website.'" target="_blank">'.$row->website.'</a>';
             })
             ->rawColumns(['website', 'action'])->make();
     }

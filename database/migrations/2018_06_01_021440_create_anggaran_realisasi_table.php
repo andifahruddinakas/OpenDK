@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateAnggaranRealisasiTable extends Migration
 {
@@ -18,12 +18,12 @@ class CreateAnggaranRealisasiTable extends Migration
             $table->integer('tahun');
             $table->integer('bulan');
             $table->char('kecamatan_id', 7);
-            $table->double('total_anggaran',16,2);
-            $table->double('total_belanja',16,2);
-            $table->double('belanja_pegawai',16,2);
-            $table->double('belanja_barang_jasa',16,2);
-            $table->double('belanja_modal',16,2);
-            $table->double('belanja_tidak_langsung',16,2);
+            $table->double('total_anggaran', 16, 2);
+            $table->double('total_belanja', 16, 2);
+            $table->double('belanja_pegawai', 16, 2);
+            $table->double('belanja_barang_jasa', 16, 2);
+            $table->double('belanja_modal', 16, 2);
+            $table->double('belanja_tidak_langsung', 16, 2);
             $table->timestamps();
         });
     }

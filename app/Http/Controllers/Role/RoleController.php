@@ -7,18 +7,17 @@ use App\Http\Requests\RoleRequest;
 use App\Models\Menu;
 use App\Models\Role;
 use App\Models\RoleUser;
-use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Yajra\DataTables\DataTables;
-
 use function back;
 use function compact;
+use Exception;
 use function flash;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use function redirect;
 use function route;
 use function trans;
 use function view;
+use Yajra\DataTables\DataTables;
 
 class RoleController extends Controller
 {
@@ -30,6 +29,7 @@ class RoleController extends Controller
     public function index()
     {
         $page_title = 'Grup Pengguna';
+
         return view('role.index', compact('page_title'));
     }
 
@@ -41,6 +41,7 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = Role::getListPermission();
+
         return view('role.create', compact('permissions'));
     }
 
@@ -48,23 +49,24 @@ class RoleController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
+     *
      * @return Response
      */
     public function store(RoleRequest $request)
     {
         try {
             $temp = [];
-            if (! empty($request->permissions)) {
+            if (!empty($request->permissions)) {
                 foreach ($request->permissions as $key => $value) {
                     $temp[$key] = $value == 1 ? true : false;
                 }
             }
 
             $request['permissions'] = $temp;
-            $role                   = Role::create($request->all());
+            $role = Role::create($request->all());
             flash()->success(trans('message.role.create-success', [
                 'attribute' => trans('island.role'),
-                'detail'    => '#' . $role->id . ' | ' . $role->slug,
+                'detail'    => '#'.$role->id.' | '.$role->slug,
             ]));
 
             return redirect()->route('setting.role.index');
@@ -80,7 +82,8 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
@@ -90,21 +93,24 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit($id)
     {
-        $role        = Role::find($id);
+        $role = Role::find($id);
         $permissions = Role::getListPermission();
-        $menu        = Menu::get();
+        $menu = Menu::get();
+
         return view('role.edit', compact('role', 'permissions', 'menu'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function update(Request $request, $id)
@@ -120,11 +126,12 @@ class RoleController extends Controller
                 $role = Role::find($id);
                 flash()->success(trans('message.role.update-success', [
                     'attribute' => trans('island.role'),
-                    'detail'    => '#' . $role->id . ' | ' . $role->slug,
+                    'detail'    => '#'.$role->id.' | '.$role->slug,
                 ]));
             } else {
                 Role::find($id)->update(['name' => $request->name, 'permissions' => []]);
             }
+
             return redirect()->route('setting.role.index');
         } catch (Exception $e) {
             flash()->error(trans('message.role.update-error', [
@@ -138,7 +145,8 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)
@@ -154,6 +162,7 @@ class RoleController extends Controller
                 $role = Role::findOrFail($id);
                 $role->delete();
                 flash()->success(trans('general.destroy-success'));
+
                 return redirect()->route('setting.role.index');
             }
         } catch (Exception $e) {
@@ -168,16 +177,16 @@ class RoleController extends Controller
     /**
      * Gets the data.
      *
-     * @return     <type>  The data.
+     * @return <type> The data.
      */
     public function getData()
     {
         return DataTables::of(Role::datatables())
         ->addColumn('action', function ($role) {
-            $edit_url   = route('setting.role.edit', $role->id);
+            $edit_url = route('setting.role.edit', $role->id);
             $delete_url = route('setting.role.destroy', $role->id);
 
-            $data['edit_url']   = $edit_url;
+            $data['edit_url'] = $edit_url;
             $data['delete_url'] = $delete_url;
 
             return view('forms.action', $data);

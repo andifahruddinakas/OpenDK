@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateAnggaranDesaTable extends Migration
 {
@@ -20,7 +20,7 @@ class CreateAnggaranDesaTable extends Migration
             $table->integer('tahun');
             $table->string('no_akun', 10);
             $table->string('nama_akun', 255);
-            $table->double('jumlah',16,2);
+            $table->double('jumlah', 16, 2);
             $table->timestamps();
         });
     }

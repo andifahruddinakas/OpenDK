@@ -5,28 +5,26 @@ namespace App\Http\Controllers\Data;
 use App\Http\Controllers\Controller;
 use App\Imports\ImporFasilitasPaud;
 use App\Models\FasilitasPAUD;
+use function back;
+use function compact;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Yajra\DataTables\Facades\DataTables;
-
-use function back;
-use function compact;
 use function months_list;
 use function redirect;
 use function request;
 use function route;
 use function view;
+use Yajra\DataTables\Facades\DataTables;
 use function years_list;
 
 class FasilitasPaudController extends Controller
 {
-    
     public function index()
     {
-        
-        $page_title       = 'Fasilitas PAUD';
-        $page_description = 'Data Fasilitas PAUD ' . $this->sebutan_wilayah. ' ' .$this->nama_wilayah;
+        $page_title = 'Fasilitas PAUD';
+        $page_description = 'Data Fasilitas PAUD '.$this->sebutan_wilayah.' '.$this->nama_wilayah;
+
         return view('data.fasilitas_paud.index', compact('page_title', 'page_description'));
     }
 
@@ -39,10 +37,10 @@ class FasilitasPaudController extends Controller
     {
         return DataTables::of(FasilitasPAUD::with(['desa']))
             ->addColumn('actions', function ($row) {
-                $edit_url   = route('data.fasilitas-paud.edit', $row->id);
+                $edit_url = route('data.fasilitas-paud.edit', $row->id);
                 $delete_url = route('data.fasilitas-paud.destroy', $row->id);
 
-                $data['edit_url']   = $edit_url;
+                $data['edit_url'] = $edit_url;
                 $data['delete_url'] = $delete_url;
 
                 return view('forms.action', $data);
@@ -57,10 +55,11 @@ class FasilitasPaudController extends Controller
      */
     public function import()
     {
-        $page_title       = 'Import';
+        $page_title = 'Import';
         $page_description = 'Import Data Fasilitas PAUD';
-        $years_list       = years_list();
-        $months_list      = months_list();
+        $years_list = years_list();
+        $months_list = months_list();
+
         return view('data.fasilitas_paud.import', compact('page_title', 'page_description', 'years_list', 'months_list'));
     }
 
@@ -82,7 +81,7 @@ class FasilitasPaudController extends Controller
             (new ImporFasilitasPaud($request->all()))
                 ->queue($request->file('file'));
         } catch (Exception $e) {
-            return back()->with('error', 'Import data gagal. ' . $e->getMessage());
+            return back()->with('error', 'Import data gagal. '.$e->getMessage());
         }
 
         return back()->with('success', 'Import data sukses.');
@@ -91,21 +90,24 @@ class FasilitasPaudController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit($id)
     {
-        $fasilitas        = FasilitasPAUD::findOrFail($id);
-        $page_title       = 'Ubah';
+        $fasilitas = FasilitasPAUD::findOrFail($id);
+        $page_title = 'Ubah';
         $page_description = 'Ubah Data Fasilitas PAUD';
+
         return view('data.fasilitas_paud.edit', compact('page_title', 'page_description', 'fasilitas'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function update(Request $request, $id)
@@ -130,7 +132,8 @@ class FasilitasPaudController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)

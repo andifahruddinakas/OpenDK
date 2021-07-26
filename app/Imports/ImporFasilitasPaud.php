@@ -13,7 +13,7 @@ class ImporFasilitasPaud implements ToModel, WithHeadingRow, WithChunkReading, S
 {
     use Importable;
 
-    /** @var array $request */
+    /** @var array */
     protected $request;
 
     public function __construct(array $request)

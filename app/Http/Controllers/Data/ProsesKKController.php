@@ -4,18 +4,17 @@ namespace App\Http\Controllers\Data;
 
 use App\Http\Controllers\Controller;
 use App\Models\ProsesKK;
+use function back;
+use function compact;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Yajra\DataTables\DataTables;
-
-use function back;
-use function compact;
 use function redirect;
 use function request;
 use function route;
 use function view;
+use Yajra\DataTables\DataTables;
 
 class ProsesKKController extends Controller
 {
@@ -26,8 +25,9 @@ class ProsesKKController extends Controller
      */
     public function index()
     {
-        $page_title       = 'Proses Kartu Keluarga';
+        $page_title = 'Proses Kartu Keluarga';
         $page_description = 'Data Proses Pembuatan Kartu Keluarga';
+
         return view('data.proses_kk.index', compact('page_title', 'page_description'));
     }
 
@@ -52,10 +52,10 @@ class ProsesKKController extends Controller
             ->addColumn(
                 'action',
                 function ($row) {
-                    $edit_url   = route('data.proses-kk.edit', $row->id);
+                    $edit_url = route('data.proses-kk.edit', $row->id);
                     $delete_url = route('data.proses-kk.destroy', $row->id);
 
-                    $data['edit_url']   = $edit_url;
+                    $data['edit_url'] = $edit_url;
                     $data['delete_url'] = $delete_url;
 
                     return view('forms.action', $data);
@@ -70,6 +70,7 @@ class ProsesKKController extends Controller
                 } elseif ($row->status == 'SELESAI') {
                     $status = '<span class="badge bg-green">SELESAI</span>';
                 }
+
                 return $status;
             })
             ->rawColumns(['status', 'action'])->make();
@@ -82,7 +83,7 @@ class ProsesKKController extends Controller
      */
     public function create()
     {
-        $page_title       = 'Tambah';
+        $page_title = 'Tambah';
         $page_description = 'Tambah Proses Kartu Keluarga Baru';
 
         return view('data.proses_kk.create', compact('page_title', 'page_description'));
@@ -114,7 +115,8 @@ class ProsesKKController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
@@ -124,14 +126,15 @@ class ProsesKKController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit($id)
     {
-        $kk               = ProsesKK::findOrFail($id);
-        $page_title       = 'Ubah';
-        $page_description = 'Ubah Proses KK : ' . $kk->penduduk->nama;
+        $kk = ProsesKK::findOrFail($id);
+        $page_title = 'Ubah';
+        $page_description = 'Ubah Proses KK : '.$kk->penduduk->nama;
 
         return view('data.proses_kk.edit', compact('page_title', 'page_description', 'kk'));
     }
@@ -139,7 +142,8 @@ class ProsesKKController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function update(Request $request, $id)
@@ -163,7 +167,8 @@ class ProsesKKController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)

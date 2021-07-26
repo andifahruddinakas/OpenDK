@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Page;
 
 use App\Facades\Counter;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
-
 use function array_add;
 use function compact;
 use function config;
+use Illuminate\Support\Facades\DB;
 use function kuartal_bulan;
 use function request;
 use function rtrim;
@@ -30,19 +29,20 @@ class KesehatanController extends Controller
     {
         Counter::count('statistik.kesehatan');
 
-        $defaultProfil    = config('app.default_profile');
-        $page_title       = 'Kesehatan';
-        $page_description = 'Data Kesehatan ' .$this->sebutan_wilayah;
-        $year_list        = years_list();
-        $list_desa        = DB::table('das_data_desa')->select('*')->where('kecamatan_id', '=', $defaultProfil)->get();
+        $defaultProfil = config('app.default_profile');
+        $page_title = 'Kesehatan';
+        $page_description = 'Data Kesehatan '.$this->sebutan_wilayah;
+        $year_list = years_list();
+        $list_desa = DB::table('das_data_desa')->select('*')->where('kecamatan_id', '=', $defaultProfil)->get();
+
         return view('pages.kesehatan.show_kesehatan', compact('page_title', 'page_description', 'defaultProfil', 'year_list', 'list_desa'));
     }
 
     // Get Data Chart AKI & AKB
     public function getChartAKIAKB()
     {
-        $kid  = request('kid');
-        $did  = request('did');
+        $kid = request('kid');
+        $did = request('did');
         $year = request('y');
         $data = [];
 
@@ -71,7 +71,7 @@ class KesehatanController extends Controller
             // Quartal
             foreach (kuartal_bulan() as $key => $kuartal) {
                 $query = DB::table('das_akib')
-                    ->whereRaw('bulan in (' . $this->getIdsQuartal($key) . ')')
+                    ->whereRaw('bulan in ('.$this->getIdsQuartal($key).')')
                     ->where('tahun', $year);
                 if ($did != 'ALL') {
                     $query->where('desa_id', '=', $did);
@@ -94,8 +94,8 @@ class KesehatanController extends Controller
             $data_tabel = [];
             // Quartal
             foreach (kuartal_bulan() as $key => $kuartal) {
-                $query                       = DB::table('das_akib')
-                    ->whereRaw('bulan in (' . $this->getIdsQuartal($key) . ')')
+                $query = DB::table('das_akib')
+                    ->whereRaw('bulan in ('.$this->getIdsQuartal($key).')')
                     ->where('tahun', $year);
                 $data_tabel['quartal'][$key] = [
                     'aki' => $query->sum('aki'),
@@ -105,22 +105,22 @@ class KesehatanController extends Controller
 
             // Detail Desa
             foreach (kuartal_bulan() as $key => $kuartal) {
-                $query                    = DB::table('das_akib')
+                $query = DB::table('das_akib')
                     ->join('das_data_desa', 'das_akib.desa_id', '=', 'das_data_desa.desa_id')
                     ->selectRaw('das_data_desa.nama, sum(das_akib.aki) as aki, sum(das_akib.akb) as akb')
-                    ->whereRaw('das_akib.bulan in (' . $this->getIdsQuartal($key) . ')')
+                    ->whereRaw('das_akib.bulan in ('.$this->getIdsQuartal($key).')')
                     ->where('das_akib.tahun', $year)
                     ->groupBy('das_data_desa.nama')->get();
                 $data_tabel['desa'][$key] = $query;
             }
 
             $tabel_kesehatan = view('pages.kesehatan.tabel_akiakb_1', compact('data_tabel'))->render();
-            //$tabel_kesehatan = $data_tabel;
+        //$tabel_kesehatan = $data_tabel;
         } elseif ($year != 'ALL' && $did != 'ALL') {
             $data_tabel = [];
             foreach (kuartal_bulan() as $key => $kuartal) {
-                $query                       = DB::table('das_akib')
-                    ->whereRaw('bulan in (' . $this->getIdsQuartal($key) . ')')
+                $query = DB::table('das_akib')
+                    ->whereRaw('bulan in ('.$this->getIdsQuartal($key).')')
                     ->where('tahun', $year)
                     ->where('desa_id', $did);
                 $data_tabel['quartal'][$key] = [
@@ -141,8 +141,8 @@ class KesehatanController extends Controller
     // Get Data Chart Cakupan Imunisasi
     public function getChartImunisasi()
     {
-        $kid  = request('kid');
-        $did  = request('did');
+        $kid = request('kid');
+        $did = request('did');
         $year = request('y');
         $data = [];
 
@@ -166,7 +166,7 @@ class KesehatanController extends Controller
         } else {
             foreach (kuartal_bulan() as $key => $kuartal) {
                 $query = DB::table('das_imunisasi')
-                    ->whereRaw('bulan in (' . $this->getIdsQuartal($key) . ')')
+                    ->whereRaw('bulan in ('.$this->getIdsQuartal($key).')')
                     ->where('tahun', $year);
                 if ($did != 'ALL') {
                     $query->where('desa_id', '=', $did);
@@ -188,8 +188,8 @@ class KesehatanController extends Controller
             $data_tabel = [];
             // Quartal
             foreach (kuartal_bulan() as $key => $kuartal) {
-                $query                       = DB::table('das_imunisasi')
-                    ->whereRaw('bulan in (' . $this->getIdsQuartal($key) . ')')
+                $query = DB::table('das_imunisasi')
+                    ->whereRaw('bulan in ('.$this->getIdsQuartal($key).')')
                     ->where('tahun', $year);
                 $data_tabel['quartal'][$key] = [
                     'cakupan_imunisasi' => $query->sum('cakupan_imunisasi'),
@@ -198,22 +198,22 @@ class KesehatanController extends Controller
 
             // Detail Desa
             foreach (kuartal_bulan() as $key => $kuartal) {
-                $query                    = DB::table('das_imunisasi')
+                $query = DB::table('das_imunisasi')
                     ->join('das_data_desa', 'das_imunisasi.desa_id', '=', 'das_data_desa.desa_id')
                     ->selectRaw('das_data_desa.nama, sum(das_imunisasi.cakupan_imunisasi) as cakupan_imunisasi')
-                    ->whereRaw('das_imunisasi.bulan in (' . $this->getIdsQuartal($key) . ')')
+                    ->whereRaw('das_imunisasi.bulan in ('.$this->getIdsQuartal($key).')')
                     ->where('das_imunisasi.tahun', $year)
                     ->groupBy('das_data_desa.nama')->get();
                 $data_tabel['desa'][$key] = $query;
             }
 
             $tabel_kesehatan = view('pages.kesehatan.tabel_imunisasi_1', compact('data_tabel'))->render();
-            //$tabel_kesehatan = $data_tabel;
+        //$tabel_kesehatan = $data_tabel;
         } elseif ($year != 'ALL' && $did != 'ALL') {
             $data_tabel = [];
             foreach (kuartal_bulan() as $key => $kuartal) {
-                $query                       = DB::table('das_imunisasi')
-                    ->whereRaw('bulan in (' . $this->getIdsQuartal($key) . ')')
+                $query = DB::table('das_imunisasi')
+                    ->whereRaw('bulan in ('.$this->getIdsQuartal($key).')')
                     ->where('tahun', $year)
                     ->where('desa_id', $did);
                 $data_tabel['quartal'][$key] = [
@@ -234,8 +234,8 @@ class KesehatanController extends Controller
     // Get Chart Epidemi Penyakit
     public function getChartEpidemiPenyakit()
     {
-        $kid  = request('kid');
-        $did  = request('did');
+        $kid = request('kid');
+        $did = request('did');
         $year = request('y');
         $data = [];
 
@@ -261,12 +261,12 @@ class KesehatanController extends Controller
 
             foreach (semester() as $key => $val) {
                 $penyakit = DB::table('ref_penyakit')->get();
-                $temp     = [];
+                $temp = [];
                 foreach ($penyakit as $value) {
                     $query_total = DB::table('das_epidemi_penyakit')
                         //->join('ref_penyakit', 'das_epidemi_penyakit.penyakit_id', '=', 'ref_penyakit.id')
                         ->where('das_epidemi_penyakit.kecamatan_id', '=', $kid)
-                        ->whereRaw('das_epidemi_penyakit.bulan in (' . $this->getIdsSemester($key) . ')')
+                        ->whereRaw('das_epidemi_penyakit.bulan in ('.$this->getIdsSemester($key).')')
                         ->where('das_epidemi_penyakit.tahun', $year)
                         ->where('das_epidemi_penyakit.penyakit_id', $value->id);
 
@@ -274,9 +274,9 @@ class KesehatanController extends Controller
                         $query_total->where('das_epidemi_penyakit.desa_id', '=', $did);
                     }
                     $total = $query_total->sum('das_epidemi_penyakit.jumlah_penderita');
-                    $temp  = array_add($temp, 'penyakit' . $value->id, $total);
+                    $temp = array_add($temp, 'penyakit'.$value->id, $total);
                 }
-                $datas[] = array_add($temp, 'year', 'Semester ' . $key);
+                $datas[] = array_add($temp, 'year', 'Semester '.$key);
             }
 
             $data_kesehatan = $datas;
@@ -340,8 +340,8 @@ class KesehatanController extends Controller
     // Get Chart Toilet & Sanitasi
     public function getChartToiletSanitasi()
     {
-        $kid  = request('kid');
-        $did  = request('did');
+        $kid = request('kid');
+        $did = request('did');
         $year = request('y');
         $data = [];
 
@@ -367,7 +367,7 @@ class KesehatanController extends Controller
             // Quartal
             foreach (kuartal_bulan() as $key => $kuartal) {
                 $query = DB::table('das_toilet_sanitasi')
-                    ->whereRaw('bulan in (' . $this->getIdsQuartal($key) . ')')
+                    ->whereRaw('bulan in ('.$this->getIdsQuartal($key).')')
                     ->where('tahun', $year);
                 if ($did != 'ALL') {
                     $query->where('desa_id', '=', $did);
@@ -390,8 +390,8 @@ class KesehatanController extends Controller
             $data_tabel = [];
             // Quartal
             foreach (kuartal_bulan() as $key => $kuartal) {
-                $query                       = DB::table('das_toilet_sanitasi')
-                    ->whereRaw('bulan in (' . $this->getIdsQuartal($key) . ')')
+                $query = DB::table('das_toilet_sanitasi')
+                    ->whereRaw('bulan in ('.$this->getIdsQuartal($key).')')
                     ->where('tahun', $year);
                 $data_tabel['quartal'][$key] = [
                     'toilet'   => $query->sum('toilet'),
@@ -401,22 +401,22 @@ class KesehatanController extends Controller
 
             // Detail Desa
             foreach (kuartal_bulan() as $key => $kuartal) {
-                $query                    = DB::table('das_toilet_sanitasi')
+                $query = DB::table('das_toilet_sanitasi')
                     ->join('das_data_desa', 'das_toilet_sanitasi.desa_id', '=', 'das_data_desa.desa_id')
                     ->selectRaw('das_data_desa.nama, sum(das_toilet_sanitasi.toilet) as toilet, sum(das_toilet_sanitasi.sanitasi) as sanitasi')
-                    ->whereRaw('das_toilet_sanitasi.bulan in (' . $this->getIdsQuartal($key) . ')')
+                    ->whereRaw('das_toilet_sanitasi.bulan in ('.$this->getIdsQuartal($key).')')
                     ->where('das_toilet_sanitasi.tahun', $year)
                     ->groupBy('das_data_desa.nama')->get();
                 $data_tabel['desa'][$key] = $query;
             }
 
             $tabel_kesehatan = view('pages.kesehatan.tabel_sanitasi_1', compact('data_tabel'))->render();
-            //$tabel_kesehatan = $data_tabel;
+        //$tabel_kesehatan = $data_tabel;
         } elseif ($year != 'ALL' && $did != 'ALL') {
             $data_tabel = [];
             foreach (kuartal_bulan() as $key => $kuartal) {
-                $query                       = DB::table('das_toilet_sanitasi')
-                    ->whereRaw('bulan in (' . $this->getIdsQuartal($key) . ')')
+                $query = DB::table('das_toilet_sanitasi')
+                    ->whereRaw('bulan in ('.$this->getIdsQuartal($key).')')
                     ->where('tahun', $year)
                     ->where('desa_id', $did);
                 $data_tabel['quartal'][$key] = [
@@ -437,20 +437,22 @@ class KesehatanController extends Controller
     private function getIdsQuartal($q)
     {
         $quartal = kuartal_bulan()[$q];
-        $ids     = '';
+        $ids = '';
         foreach ($quartal as $key => $val) {
-            $ids .= $key . ',';
+            $ids .= $key.',';
         }
+
         return rtrim($ids, ',');
     }
 
     public function getIdsSemester($sm)
     {
         $semester = semester()[$sm];
-        $ids      = '';
+        $ids = '';
         foreach ($semester as $key => $val) {
-            $ids .= $key . ',';
+            $ids .= $key.',';
         }
+
         return rtrim($ids, ',');
     }
 }

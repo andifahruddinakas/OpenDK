@@ -5,18 +5,17 @@ namespace App\Http\Controllers\Informasi;
 use App\Facades\Counter;
 use App\Http\Controllers\Controller;
 use App\Models\Prosedur;
+use function back;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
+use function compact;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use League\Flysystem\Exception;
-use Yajra\DataTables\DataTables;
-
-use function back;
-use function compact;
 use function redirect;
 use function request;
 use function route;
 use function view;
+use Yajra\DataTables\DataTables;
 
 class ProsedurController extends Controller
 {
@@ -29,9 +28,9 @@ class ProsedurController extends Controller
     {
         Counter::count('informasi.prosedur.index');
 
-        $page_title       = 'Prosedur';
-        $page_description = 'Kumpulan SOP ' .$this->sebutan_wilayah;
-        $prosedurs        = Prosedur::latest()->paginate(10);
+        $page_title = 'Prosedur';
+        $page_description = 'Kumpulan SOP '.$this->sebutan_wilayah;
+        $prosedurs = Prosedur::latest()->paginate(10);
 
         return view('informasi.prosedur.index', compact(['page_title', 'page_description', 'prosedurs']))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -45,6 +44,7 @@ class ProsedurController extends Controller
     public function create()
     {
         $page_title = 'Tambah Prosedur';
+
         return view('informasi.prosedur.create', compact('page_title'));
     }
 
@@ -62,12 +62,12 @@ class ProsedurController extends Controller
         $prosedur = new Prosedur($request->input());
 
         if ($request->hasFile('file_prosedur')) {
-            $file     = $request->file('file_prosedur');
+            $file = $request->file('file_prosedur');
             $fileName = $file->getClientOriginalName();
-            $path     = "storage/regulasi/";
+            $path = 'storage/regulasi/';
             $request->file('file_prosedur')->move($path, $fileName);
-            $prosedur->file_prosedur = $path . $fileName;
-            $prosedur->mime_type     = $file->getClientOriginalExtension();
+            $prosedur->file_prosedur = $path.$fileName;
+            $prosedur->mime_type = $file->getClientOriginalExtension();
         }
         $prosedur->save();
 
@@ -77,13 +77,14 @@ class ProsedurController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
     {
-        $prosedur   = Prosedur::find($id);
-        $page_title = 'Detail Prosedur :' . $prosedur->judul_prosedur;
+        $prosedur = Prosedur::find($id);
+        $page_title = 'Detail Prosedur :'.$prosedur->judul_prosedur;
 
         return view('informasi.prosedur.show', compact('page_title', 'prosedur'));
     }
@@ -91,14 +92,15 @@ class ProsedurController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit($id)
     {
-        $prosedur         = Prosedur::findOrFail($id);
-        $page_title       = 'Ubah';
-        $page_description = 'Ubah Prosedur : ' . $prosedur->judul_prosedur;
+        $prosedur = Prosedur::findOrFail($id);
+        $page_title = 'Ubah';
+        $page_description = 'Ubah Prosedur : '.$prosedur->judul_prosedur;
 
         return view('informasi.prosedur.edit', compact('page_title', 'page_description', 'prosedur'));
     }
@@ -106,7 +108,8 @@ class ProsedurController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function download($id)
@@ -116,7 +119,8 @@ class ProsedurController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function update(Request $request, $id)
@@ -131,49 +135,51 @@ class ProsedurController extends Controller
             ]);
 
             if ($request->hasFile('file_prosedur')) {
-                $file     = $request->file('file_prosedur');
+                $file = $request->file('file_prosedur');
                 $fileName = $file->getClientOriginalName();
-                $path     = "storage/regulasi/";
+                $path = 'storage/regulasi/';
                 $request->file('file_prosedur')->move($path, $fileName);
-                $prosedur->file_prosedur = $path . $fileName;
-                $prosedur->mime_type     = $file->getClientOriginalExtension();
+                $prosedur->file_prosedur = $path.$fileName;
+                $prosedur->mime_type = $file->getClientOriginalExtension();
             }
 
             $prosedur->save();
 
             return redirect()->route('informasi.prosedur.index')->with('success', 'Data Prosedur berhasil disimpan!');
         } catch (Exception $e) {
-            return back()->with('error', 'Data Prosedur gagal disimpan!' . $e->getMessage());
+            return back()->with('error', 'Data Prosedur gagal disimpan!'.$e->getMessage());
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)
     {
         Prosedur::find($id)->delete();
+
         return redirect()->route('informasi.prosedur.index')->with('success', 'Prosedur Berhasil dihapus!');
     }
 
     /**
-     * Get datatable
+     * Get datatable.
      */
     public function getDataProsedur()
     {
         return DataTables::of(Prosedur::select('id', 'judul_prosedur'))
             ->addColumn('action', function ($row) {
-                $show_url   = route('informasi.prosedur.show', $row->id);
-                $edit_url   = route('informasi.prosedur.edit', $row->id);
+                $show_url = route('informasi.prosedur.show', $row->id);
+                $edit_url = route('informasi.prosedur.edit', $row->id);
                 $delete_url = route('informasi.prosedur.destroy', $row->id);
 
                 $data['show_url'] = $show_url;
 
-                if (! Sentinel::guest()) {
-                    $data['edit_url']   = $edit_url;
+                if (!Sentinel::guest()) {
+                    $data['edit_url'] = $edit_url;
                     $data['delete_url'] = $delete_url;
                 }
 

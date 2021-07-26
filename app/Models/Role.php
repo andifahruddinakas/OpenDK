@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\User;
+use function array_push;
 use Cartalyst\Sentinel\Roles\EloquentRole as Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
-
-use function array_push;
 
 class Role extends Model
 {
@@ -47,7 +45,7 @@ class Role extends Model
     }
 
     /**
-     * Role User Belong To Many User Table
+     * Role User Belong To Many User Table.
      */
     public function UserRoles()
     {
@@ -83,7 +81,8 @@ class Role extends Model
     /**
      * Get the permission based on role ID.
      *
-     * @param  int   $id
+     * @param int $id
+     *
      * @return array
      */
     public function getPermissionsKey($id)
@@ -92,6 +91,7 @@ class Role extends Model
         foreach (static::findOrFail($id)->permissions as $key => $value) {
             $permissions[] = $key;
         }
+
         return $permissions;
     }
 }

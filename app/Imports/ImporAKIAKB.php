@@ -13,7 +13,7 @@ class ImporAKIAKB implements ToModel, WithHeadingRow, WithChunkReading, ShouldQu
 {
     use Importable;
 
-    /** @var array $request */
+    /** @var array */
     protected $request;
 
     public function __construct(array $request)

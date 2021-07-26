@@ -3,19 +3,22 @@
 namespace App\Http\Controllers\setting;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Slide;;
+use App\Models\Slide;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use League\Flysystem\Exception;
-use Yajra\DataTables\DataTables;;
+use Yajra\DataTables\DataTables;
+
 class SlideController extends Controller
 {
     //
-    public function index(){
-        $page_title       = 'Slide';
+    public function index()
+    {
+        $page_title = 'Slide';
         $page_description = 'Daftar Slide';
-        return view('setting.slide.index', compact('page_title','page_description'));
+
+        return view('setting.slide.index', compact('page_title', 'page_description'));
     }
 
     /**
@@ -26,6 +29,7 @@ class SlideController extends Controller
     public function create()
     {
         $page_title = 'Tambah Slide';
+
         return view('setting.slide.create', compact('page_title'));
     }
 
@@ -44,11 +48,11 @@ class SlideController extends Controller
         $slide = new Slide($request->input());
 
         if ($request->hasFile('gambar')) {
-            $file     = $request->file('gambar');
+            $file = $request->file('gambar');
             $fileName = $file->getClientOriginalName();
-            $path     = "storage/slide/";
+            $path = 'storage/slide/';
             $request->file('gambar')->move($path, $fileName);
-            $slide->gambar = $path . $fileName;
+            $slide->gambar = $path.$fileName;
         }
         $slide->save();
 
@@ -58,13 +62,14 @@ class SlideController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
     {
-        $slide   = Slide::find($id);
-        $page_title = 'Detail Slide :' . $slide->judul;
+        $slide = Slide::find($id);
+        $page_title = 'Detail Slide :'.$slide->judul;
 
         return view('setting.slide.show', compact('page_title', 'slide'));
     }
@@ -72,22 +77,24 @@ class SlideController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit($id)
     {
-        $slide         = Slide::findOrFail($id);
-        $page_title       = 'Ubah';
-        $page_description = 'Ubah Slide : ' . $slide->judul_prosedur;
+        $slide = Slide::findOrFail($id);
+        $page_title = 'Ubah';
+        $page_description = 'Ubah Slide : '.$slide->judul_prosedur;
 
         return view('setting.slide.edit', compact('page_title', 'page_description', 'slide'));
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function update(Request $request, $id)
@@ -97,53 +104,56 @@ class SlideController extends Controller
             $slide->fill($request->all());
 
             request()->validate([
-                'judul' => 'required',
+                'judul'     => 'required',
                 'deskripsi' => 'required|max:100',
-                'gambar'  => 'required|file|mimes:jpg,jpeg,png,gif,pdf|max:2048',
+                'gambar'    => 'required|file|mimes:jpg,jpeg,png,gif,pdf|max:2048',
             ]);
 
             if ($request->hasFile('gambar')) {
-                $file     = $request->file('gambar');
+                $file = $request->file('gambar');
                 $fileName = $file->getClientOriginalName();
-                $path     = "storage/slide/";
+                $path = 'storage/slide/';
                 $request->file('gambar')->move($path, $fileName);
-                $slide->gambar = $path . $fileName;
+                $slide->gambar = $path.$fileName;
             }
 
             $slide->save();
 
             return redirect()->route('setting.slide.index')->with('success', 'Data Slide berhasil disimpan!');
         } catch (Exception $e) {
-            return back()->with('error', 'Data Slide gagal disimpan!' . $e->getMessage());
+            return back()->with('error', 'Data Slide gagal disimpan!'.$e->getMessage());
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)
     {
         Slide::find($id)->delete();
+
         return redirect()->route('setting.slide.index')->with('success', 'Slide Berhasil dihapus!');
     }
-     /**
-     * Get datatable
+
+    /**
+     * Get datatable.
      */
     public function getData()
     {
-        return DataTables::of(Slide::select('id', 'judul','deskripsi'))
+        return DataTables::of(Slide::select('id', 'judul', 'deskripsi'))
             ->addColumn('action', function ($row) {
                 // $show_url   = route('setting.slide.show', $row->id);
-                $edit_url   = route('setting.slide.edit', $row->id);
+                $edit_url = route('setting.slide.edit', $row->id);
                 $delete_url = route('setting.slide.destroy', $row->id);
 
                 // $data['show_url'] = $show_url;
 
-                if (! Sentinel::guest()) {
-                    $data['edit_url']   = $edit_url;
+                if (!Sentinel::guest()) {
+                    $data['edit_url'] = $edit_url;
                     $data['delete_url'] = $delete_url;
                 }
 
@@ -151,6 +161,7 @@ class SlideController extends Controller
             })
             ->editColumn('judul', function ($row) {
                 return $row->judul;
+
                 return $row->deskripsi;
             })->make();
     }

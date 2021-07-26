@@ -36,12 +36,12 @@ class AlterTableLogImpor extends Migration
 
     /**
      * Doctrine bug: [L5.1] Migrations - Cannot change an existing column to type char #9636.
-     * 
+     *
      * @see https://github.com/laravel/framework/issues/9636
      */
     protected function charType()
     {
-        if (! Type::hasType('char')) {
+        if (!Type::hasType('char')) {
             Type::addType('char', StringType::class);
         }
     }

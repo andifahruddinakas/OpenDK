@@ -22,29 +22,29 @@ class UsersTableSeeder extends Seeder
 
         $datas = [
             [
-                'email' => 'admin@mail.com',
+                'email'      => 'admin@mail.com',
                 'first_name' => 'Administrator',
-                'last_name' => '',
-                'gender' => 'Male',
-                'role' => 'super-admin',
-                'address' => 'Jakarta',
-                'phone'   => '622157905788',
-                'status' => 1
+                'last_name'  => '',
+                'gender'     => 'Male',
+                'role'       => 'super-admin',
+                'address'    => 'Jakarta',
+                'phone'      => '622157905788',
+                'status'     => 1,
             ],
         ];
 
-        foreach ( $datas as $key => $data ) {
-            $user = Sentinel::registerAndActivate( [
-                'email' => $data[ 'email' ],
-                'password' => "password",
-                'first_name' => $data[ 'first_name' ],
-                'last_name' => $data[ 'last_name' ],
-                'gender' => $data[ 'gender' ],
-                'phone' => $data[ 'phone' ],
-                'address' => $data[ 'address' ],
-                'status' => 1
-            ] );
-            Sentinel::findRoleBySlug( $data[ 'role' ] )->users()->attach( $user );
+        foreach ($datas as $key => $data) {
+            $user = Sentinel::registerAndActivate([
+                'email'      => $data['email'],
+                'password'   => 'password',
+                'first_name' => $data['first_name'],
+                'last_name'  => $data['last_name'],
+                'gender'     => $data['gender'],
+                'phone'      => $data['phone'],
+                'address'    => $data['address'],
+                'status'     => 1,
+            ]);
+            Sentinel::findRoleBySlug($data['role'])->users()->attach($user);
         }
 
         Schema::enableForeignKeyConstraints();

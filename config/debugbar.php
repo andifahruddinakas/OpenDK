@@ -15,7 +15,7 @@ return [
      */
 
     'enabled' => env('DEBUGBAR_ENABLED', null),
-    'except' => [
+    'except'  => [
         'telescope*',
         'horizon*',
     ],
@@ -67,7 +67,7 @@ return [
      | Optionally, you can also send ServerTiming headers on ajax requests for the Chrome DevTools.
      */
 
-    'capture_ajax' => true,
+    'capture_ajax'    => true,
     'add_ajax_timing' => false,
 
     /*
@@ -141,13 +141,13 @@ return [
             'show_name' => true,   // Also show the users name/email in the debugbar
         ],
         'db' => [
-            'with_params'       => true,   // Render SQL with the parameters substituted
-            'backtrace'         => true,   // Use a backtrace to find the origin of the query in your files.
+            'with_params'             => true,   // Render SQL with the parameters substituted
+            'backtrace'               => true,   // Use a backtrace to find the origin of the query in your files.
             'backtrace_exclude_paths' => [],   // Paths to exclude from backtrace. (in addition to defaults)
-            'timeline'          => false,  // Add the queries to the timeline
-            'explain' => [                 // Show EXPLAIN output on queries
+            'timeline'                => false,  // Add the queries to the timeline
+            'explain'                 => [                 // Show EXPLAIN output on queries
                 'enabled' => false,
-                'types' => ['SELECT'],     // Deprecated setting, is always only SELECT
+                'types'   => ['SELECT'],     // Deprecated setting, is always only SELECT
             ],
             'hints'             => false,    // Show hints for common mistakes
             'show_copy'         => false,    // Show copy button next to the query

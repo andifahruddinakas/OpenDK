@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Page;
 use App\Facades\Counter;
 use App\Http\Controllers\Controller;
 use App\Models\Program;
-use Illuminate\Support\Facades\DB;
-
 use function compact;
 use function config;
+use Illuminate\Support\Facades\DB;
 use function request;
 use function rtrim;
 use function view;
@@ -17,28 +16,29 @@ use function years_list;
 class ProgramBantuanController extends Controller
 {
     /**
-     * Menampilkan Data Program Bantuan
+     * Menampilkan Data Program Bantuan.
      **/
     public function showProgramBantuan()
     {
         Counter::count('statistik.program-bantuan');
 
-        $page_title       = 'Program Bantuan';
+        $page_title = 'Program Bantuan';
         $page_description = 'Data Program Bantuan';
-        $defaultProfil    = config('app.default_profile');
-        $year_list        = years_list();
-        $list_desa        = DB::table('das_data_desa')->select('*')->where('kecamatan_id', '=', $defaultProfil)->get();
+        $defaultProfil = config('app.default_profile');
+        $year_list = years_list();
+        $list_desa = DB::table('das_data_desa')->select('*')->where('kecamatan_id', '=', $defaultProfil)->get();
+
         return view('pages.program_bantuan.show_program_bantuan', compact('page_title', 'page_description', 'defaultProfil', 'year_list', 'list_desa'));
     }
 
     public function getChartBantuanPenduduk()
     {
-        $kid  = config('app.default_profile');
-        $did  = request('did');
+        $kid = config('app.default_profile');
+        $did = request('did');
         $year = request('y');
 
         // Data Grafik Bantuan Penduduk/Perorangan
-        $data    = [];
+        $data = [];
         $program = Program::where('sasaran', 1)->get();
 
         foreach ($program as $prog) {
@@ -59,17 +59,18 @@ class ProgramBantuanController extends Controller
 
             $data[] = ['program' => $prog->nama, 'value' => $query_result->count()];
         }
+
         return $data;
     }
 
     public function getChartBantuanKeluarga()
     {
-        $kid  = config('app.default_profile');
-        $did  = request('did');
+        $kid = config('app.default_profile');
+        $did = request('did');
         $year = request('y');
 
         // Data Grafik Bantuan Penduduk/Perorangan
-        $data    = [];
+        $data = [];
         $program = Program::where('sasaran', 2)->get();
 
         foreach ($program as $prog) {
@@ -91,6 +92,7 @@ class ProgramBantuanController extends Controller
 
             $data[] = ['program' => $prog->nama, 'value' => $query_result->count()];
         }
+
         return $data;
     }
 
@@ -98,8 +100,9 @@ class ProgramBantuanController extends Controller
     {
         $str = '';
         foreach (years_list() as $year) {
-            $str .= $year . ',';
+            $str .= $year.',';
         }
+
         return rtrim($str, ',');
     }
 }

@@ -2,11 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use function array_diff_key;
 use Closure;
 use Form;
 use Illuminate\Http\Request;
-
-use function array_diff_key;
 use function session;
 use function sprintf;
 
@@ -16,6 +15,7 @@ class CustomForms
      * Handle an incoming request.
      *
      * @param Request $request
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -40,7 +40,6 @@ class CustomForms
                 return ' has-error';
             }
 
-            return;
         });
 
         // Generate error message if the given field has errors...
@@ -49,7 +48,6 @@ class CustomForms
                 return sprintf('<p class="help-block text-danger">%s</p>', $errors->first($field));
             }
 
-            return;
         });
 
         return $next($request);

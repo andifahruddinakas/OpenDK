@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateProsedurTable extends Migration
 {
@@ -17,7 +17,7 @@ class CreateProsedurTable extends Migration
             $table->increments('id');
             $table->string('judul_prosedur', 150);
             $table->string('file_prosedur', 255);
-            $table->string('mime_type',20);
+            $table->string('mime_type', 20);
             $table->timestamps();
         });
     }

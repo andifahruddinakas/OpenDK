@@ -5,7 +5,6 @@ namespace Database\Seeds\Demo;
 use App\Imports\ImporTingkatPendidikan;
 use App\Models\DataDesa;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class DemoTingkatPendidikanSeeder extends Seeder

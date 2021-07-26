@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Page;
 use App\Facades\Counter;
 use App\Http\Controllers\Controller;
 use App\Models\Profil;
-use Illuminate\Support\Facades\DB;
-
 use function array_sort;
 use function config;
+use Illuminate\Support\Facades\DB;
 use function number_format;
 use function request;
 use function view;
@@ -17,18 +16,18 @@ use function years_list;
 class AnggaranRealisasiController extends Controller
 {
     /**
-     * Menampilkan Data Anggaran Dan realisasi Kecamatan
+     * Menampilkan Data Anggaran Dan realisasi Kecamatan.
      **/
     public function showAnggaranDanRealisasi()
     {
         Counter::count('dashboard.anggaran-dan-realisasi');
 
-        $data['page_title']       = 'Anggaran & Realisasi';
-        $data['page_description'] = 'Data Anggaran & Realisasi ' .$this->sebutan_wilayah;
-        $defaultProfil            = config('app.default_profile');
-        $data['defaultProfil']    = $defaultProfil;
-        $data['year_list']        = years_list();
-        $data['list_kecamatan']   = Profil::with('kecamatan')->orderBy('kecamatan_id', 'desc')->get();
+        $data['page_title'] = 'Anggaran & Realisasi';
+        $data['page_description'] = 'Data Anggaran & Realisasi '.$this->sebutan_wilayah;
+        $defaultProfil = config('app.default_profile');
+        $data['defaultProfil'] = $defaultProfil;
+        $data['year_list'] = years_list();
+        $data['list_kecamatan'] = Profil::with('kecamatan')->orderBy('kecamatan_id', 'desc')->get();
         /*$data['list_desa'] = DB::table('ref_desa')->select('*')->where('kecamatan_id', '=', $defaultProfil)->get();*/
 
         return view('pages.anggaran_realisasi.show_anggaran_realisasi')->with($data);
@@ -36,17 +35,17 @@ class AnggaranRealisasiController extends Controller
 
     public function getChartAnggaranRealisasi()
     {
-        $mid  = request('mid');
+        $mid = request('mid');
         $year = request('y');
 
         // Grafik Data Pendidikan
         $data_pendidikan = [];
         if ($year == 'ALL') {
-            $total_anggaran         = 0;
-            $total_belanja          = 0;
-            $belanja_pegawai        = 0;
-            $belanja_barang_jasa    = 0;
-            $belanja_modal          = 0;
+            $total_anggaran = 0;
+            $total_belanja = 0;
+            $belanja_pegawai = 0;
+            $belanja_barang_jasa = 0;
+            $belanja_modal = 0;
             $belanja_tidak_langsung = 0;
 
             foreach (array_sort(years_list()) as $yearls) {
@@ -60,24 +59,24 @@ class AnggaranRealisasiController extends Controller
 
                 $res = $query_result->first();
 
-                if (! empty($res)) {
-                    $total_anggaran         = $res->total_anggaran;
-                    $total_belanja          = $res->total_belanja;
-                    $belanja_pegawai        = $res->belanja_pegawai;
-                    $belanja_barang_jasa    = $res->belanja_barang_jasa;
-                    $belanja_modal          = $res->belanja_modal;
+                if (!empty($res)) {
+                    $total_anggaran = $res->total_anggaran;
+                    $total_belanja = $res->total_belanja;
+                    $belanja_pegawai = $res->belanja_pegawai;
+                    $belanja_barang_jasa = $res->belanja_barang_jasa;
+                    $belanja_modal = $res->belanja_modal;
                     $belanja_tidak_langsung = $res->belanja_tidak_langsung;
                 } else {
-                    $total_anggaran         += 0;
-                    $total_belanja          += 0;
-                    $belanja_pegawai        += 0;
-                    $belanja_barang_jasa    += 0;
-                    $belanja_modal          += 0;
+                    $total_anggaran += 0;
+                    $total_belanja += 0;
+                    $belanja_pegawai += 0;
+                    $belanja_barang_jasa += 0;
+                    $belanja_modal += 0;
                     $belanja_tidak_langsung += 0;
                 }
             }
 
-            $data_pendidikan['sum']   = [
+            $data_pendidikan['sum'] = [
                 'total_belanja'                     => number_format($total_belanja),
                 'total_belanja_persen'              => number_format(($total_belanja / $total_anggaran) * 100, 1),
                 'selisih_anggaran_realisasi'        => number_format(0),
@@ -110,11 +109,11 @@ class AnggaranRealisasiController extends Controller
                 ],
             ];
         } else {
-            $total_anggaran         = 0;
-            $total_belanja          = 0;
-            $belanja_pegawai        = 0;
-            $belanja_barang_jasa    = 0;
-            $belanja_modal          = 0;
+            $total_anggaran = 0;
+            $total_belanja = 0;
+            $belanja_pegawai = 0;
+            $belanja_barang_jasa = 0;
+            $belanja_modal = 0;
             $belanja_tidak_langsung = 0;
 
             $query_result = DB::table('das_anggaran_realisasi')
@@ -126,20 +125,20 @@ class AnggaranRealisasiController extends Controller
             if ($mid != 'ALL') {
                 $query_result->where('bulan', '=', $mid);
             }
-               $query_result->where('tahun', '=', $year);
+            $query_result->where('tahun', '=', $year);
 
-                $res = $query_result->first();
+            $res = $query_result->first();
 
-            if (! empty($res)) {
-                $total_anggaran         = $res->total_anggaran;
-                $total_belanja          = $res->total_belanja;
-                $belanja_pegawai        = $res->belanja_pegawai;
-                $belanja_barang_jasa    = $res->belanja_barang_jasa;
-                $belanja_modal          = $res->belanja_modal;
+            if (!empty($res)) {
+                $total_anggaran = $res->total_anggaran;
+                $total_belanja = $res->total_belanja;
+                $belanja_pegawai = $res->belanja_pegawai;
+                $belanja_barang_jasa = $res->belanja_barang_jasa;
+                $belanja_modal = $res->belanja_modal;
                 $belanja_tidak_langsung = $res->belanja_tidak_langsung;
             }
 
-            $data_pendidikan['sum']   = [
+            $data_pendidikan['sum'] = [
                 'total_belanja'                     => number_format($total_belanja),
                 'total_belanja_persen'              => number_format(($total_belanja / $total_anggaran) * 100, 1),
                 'selisih_anggaran_realisasi'        => number_format(0),

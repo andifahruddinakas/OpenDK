@@ -4,18 +4,17 @@ namespace App\Http\Controllers\Data;
 
 use App\Http\Controllers\Controller;
 use App\Models\ProsesEKTP;
+use function back;
+use function compact;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Yajra\DataTables\DataTables;
-
-use function back;
-use function compact;
 use function redirect;
 use function request;
 use function route;
 use function view;
+use Yajra\DataTables\DataTables;
 
 class ProsesEKTPController extends Controller
 {
@@ -26,7 +25,7 @@ class ProsesEKTPController extends Controller
      */
     public function index()
     {
-        $page_title       = 'Proses e-KTP';
+        $page_title = 'Proses e-KTP';
         $page_description = 'Data Proses e-KTP';
 
         return view('data.proses_ektp.index', compact('page_title', 'page_description'));
@@ -39,7 +38,7 @@ class ProsesEKTPController extends Controller
      */
     public function create()
     {
-        $page_title       = 'Tambah';
+        $page_title = 'Tambah';
         $page_description = 'Tambah Proses e-KTP Baru';
 
         return view('data.proses_ektp.create', compact('page_title', 'page_description'));
@@ -71,7 +70,8 @@ class ProsesEKTPController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
@@ -81,14 +81,15 @@ class ProsesEKTPController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit($id)
     {
-        $ektp             = ProsesEKTP::findOrFail($id);
-        $page_title       = 'Ubah';
-        $page_description = 'Ubah Proses e-KTP : ' . $ektp->penduduk->nama;
+        $ektp = ProsesEKTP::findOrFail($id);
+        $page_title = 'Ubah';
+        $page_description = 'Ubah Proses e-KTP : '.$ektp->penduduk->nama;
 
         return view('data.proses_ektp.edit', compact('page_title', 'page_description', 'ektp'));
     }
@@ -96,13 +97,15 @@ class ProsesEKTPController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function update(Request $request, $id)
     {
         $ektp = ProsesEKTP::findOrFail($id);
         $ektp->fill($request->all());
+
         try {
             request()->validate([
                 'penduduk_id'       => 'required',
@@ -122,7 +125,8 @@ class ProsesEKTPController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)
@@ -150,10 +154,10 @@ class ProsesEKTPController extends Controller
                 'das_proses_ektp.status',
             ]))
             ->addColumn('action', function ($row) {
-                $edit_url   = route('data.proses-ektp.edit', $row->id);
+                $edit_url = route('data.proses-ektp.edit', $row->id);
                 $delete_url = route('data.proses-ektp.destroy', $row->id);
 
-                $data['edit_url']   = $edit_url;
+                $data['edit_url'] = $edit_url;
                 $data['delete_url'] = $delete_url;
 
                 return view('forms.action', $data);
@@ -167,6 +171,7 @@ class ProsesEKTPController extends Controller
                 } elseif ($row->status == 'SELESAI') {
                     $status = '<span class="badge bg-green">SELESAI</span>';
                 }
+
                 return $status;
             })
             ->rawColumns(['status', 'action'])->make();

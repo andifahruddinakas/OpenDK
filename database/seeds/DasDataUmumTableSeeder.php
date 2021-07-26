@@ -1,20 +1,17 @@
 <?php
 
-use App\Models\DataUmum;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class DasDataUmumTableSeeder extends Seeder
 {
-
     /**
-     * Auto generated seed file
+     * Auto generated seed file.
      *
      * @return void
      */
     public function run()
     {
-
         \DB::table('das_data_umum')->delete();
 
         DB::table('das_data_umum')->insert([

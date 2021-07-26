@@ -5,20 +5,19 @@ namespace App\Http\Controllers\Data;
 use App\Http\Controllers\Controller;
 use App\Models\Keluarga;
 use App\Models\Penduduk;
+use function back;
+use function compact;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Request as RequestFacade;
-use Maatwebsite\Excel\Facades\Excel;
-use Yajra\DataTables\DataTables;
-
-use function back;
-use function compact;
 use function ini_set;
+use Maatwebsite\Excel\Facades\Excel;
 use function redirect;
 use function request;
 use function route;
 use function view;
+use Yajra\DataTables\DataTables;
 
 class KeluargaController extends Controller
 {
@@ -29,24 +28,23 @@ class KeluargaController extends Controller
      */
     public function index()
     {
-        $page_title       = 'Keluarga';
+        $page_title = 'Keluarga';
         $page_description = 'Data Keluarga';
 
         return view('data.keluarga.index', compact('page_title', 'page_description'));
     }
 
     /**
-     * Return datatable Data Keluarga
+     * Return datatable Data Keluarga.
      */
-
     public function getKeluarga()
     {
         return DataTables::of(Keluarga::query())
             ->addColumn('action', function ($row) {
-                $edit_url   = route('data.keluarga.edit', $row->id);
+                $edit_url = route('data.keluarga.edit', $row->id);
                 $delete_url = route('data.keluarga.destroy', $row->id);
 
-                $data['edit_url']   = $edit_url;
+                $data['edit_url'] = $edit_url;
                 $data['delete_url'] = $delete_url;
 
                 return view('forms.action', $data);
@@ -54,6 +52,7 @@ class KeluargaController extends Controller
             ->editColumn('nik_kepala', function ($row) {
                 if (isset($row->nik_kepala)) {
                     $penduduk = Penduduk::where('nik', $row->nik_kepala)->first();
+
                     return $penduduk->nama;
                 } else {
                     return '';
@@ -68,9 +67,9 @@ class KeluargaController extends Controller
      */
     public function create()
     {
-        $page_title       = 'Tambah Keluarga';
+        $page_title = 'Tambah Keluarga';
         $page_description = 'Tambah Data Keluarga';
-        $penduduk         = Penduduk::select(['nik', 'nama'])->get();
+        $penduduk = Penduduk::select(['nik', 'nama'])->get();
 
         return view('data.keluarga.create', compact('page_title', 'page_description', 'penduduk'));
     }
@@ -105,7 +104,8 @@ class KeluargaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
@@ -115,15 +115,16 @@ class KeluargaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit($id)
     {
-        $page_title       = 'Edit Keluarga';
+        $page_title = 'Edit Keluarga';
         $page_description = 'Edit Data Keluarga';
-        $penduduk         = Penduduk::select(['nik', 'nama'])->get();
-        $keluarga         = Keluarga::findOrFail($id);
+        $penduduk = Penduduk::select(['nik', 'nama'])->get();
+        $keluarga = Keluarga::findOrFail($id);
 
         return view('data.keluarga.edit', compact('page_title', 'page_description', 'penduduk', 'keluarga'));
     }
@@ -131,13 +132,15 @@ class KeluargaController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function update(Request $request, $id)
     {
         $keluarga = Keluarga::findOrFail($id);
         $keluarga->fill($request->all());
+
         try {
             request()->validate([
                 'no_kk'        => 'required|max:16',
@@ -161,7 +164,8 @@ class KeluargaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)
@@ -169,7 +173,7 @@ class KeluargaController extends Controller
         try {
             Keluarga::findOrFail($id)->delete();
 
-             return redirect()->route('data.keluarga.index')->with('success', 'Data Keluarga berhasil dihapus!');
+            return redirect()->route('data.keluarga.index')->with('success', 'Data Keluarga berhasil dihapus!');
         } catch (Exception $e) {
             return back()->withInput()->with('error', 'Data Keluarga gagal dihapus!');
         }
@@ -182,7 +186,7 @@ class KeluargaController extends Controller
      */
     public function import()
     {
-        $page_title       = 'Import';
+        $page_title = 'Import';
         $page_description = 'Import Data Keluarga';
 
         return view('data.keluarga.import', compact('page_title', 'page_description'));

@@ -7,7 +7,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-
 use function response;
 
 class AuthController extends Controller
@@ -36,7 +35,7 @@ class AuthController extends Controller
 
         $credentials = $request->only(['email', 'password']);
 
-        if (! $token = Auth::attempt($credentials)) {
+        if (!$token = Auth::attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -57,6 +56,7 @@ class AuthController extends Controller
      * Log the user out (Invalidate the token).
      *
      * @param Response $response
+     *
      * @return JsonResponse
      */
     public function logout()
@@ -79,7 +79,8 @@ class AuthController extends Controller
     /**
      * Get the token array structure.
      *
-     * @param  string $token
+     * @param string $token
+     *
      * @return JsonResponse
      */
     protected function respondWithToken($token)

@@ -3,7 +3,6 @@
 namespace Database\Seeds\Demo;
 
 use App\Imports\ImporPenduduk;
-use App\Models\DataDesa;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
@@ -21,7 +20,7 @@ class DemoPendudukSeeder extends Seeder
         $path = storage_path('app/public/template_upload/penduduk_22_12_2020_opendk.zip');
         $extract = storage_path('app/public/penduduk/foto/');
 
-        $zip = new ZipArchive;
+        $zip = new ZipArchive();
         $zip->open($path);
         $zip->extractTo($extract);
         $zip->close();

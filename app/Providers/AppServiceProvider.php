@@ -25,10 +25,10 @@ class AppServiceProvider extends ServiceProvider
         Penduduk::saved(function ($model) {
             $dataUmum = DataUmum::where('kecamatan_id', $model->kecamatan_id)->first();
 
-            $dataUmum->jumlah_penduduk    = $model->where('kecamatan_id', $model->kecamatan_id)->count();
-            $dataUmum->jml_laki_laki      = $model->where('sex', 1)->count();
-            $dataUmum->jml_perempuan      = $model->where('sex', 2)->count();
-            $dataUmum->luas_wilayah       = DataDesa::where('kecamatan_id', $model->kecamatan_id)->sum('luas_wilayah');
+            $dataUmum->jumlah_penduduk = $model->where('kecamatan_id', $model->kecamatan_id)->count();
+            $dataUmum->jml_laki_laki = $model->where('sex', 1)->count();
+            $dataUmum->jml_perempuan = $model->where('sex', 2)->count();
+            $dataUmum->luas_wilayah = DataDesa::where('kecamatan_id', $model->kecamatan_id)->sum('luas_wilayah');
             $dataUmum->kepadatan_penduduk = $dataUmum->luas_wilayah == 0 ? 0 : $dataUmum->jumlah_penduduk / $dataUmum->luas_wilayah;
 
             $dataUmum->save();
@@ -37,10 +37,10 @@ class AppServiceProvider extends ServiceProvider
         Penduduk::deleted(function ($model) {
             $dataUmum = DataUmum::where('kecamatan_id', $model->kecamatan_id)->first();
 
-            $dataUmum->jumlah_penduduk    = $model->where('kecamatan_id', $model->kecamatan_id)->count();
-            $dataUmum->jml_laki_laki      = $model->where('sex', 1)->count();
-            $dataUmum->jml_perempuan      = $model->where('sex', 2)->count();
-            $dataUmum->luas_wilayah       = DataDesa::where('kecamatan_id', $model->kecamatan_id)->sum('luas_wilayah');
+            $dataUmum->jumlah_penduduk = $model->where('kecamatan_id', $model->kecamatan_id)->count();
+            $dataUmum->jml_laki_laki = $model->where('sex', 1)->count();
+            $dataUmum->jml_perempuan = $model->where('sex', 2)->count();
+            $dataUmum->luas_wilayah = DataDesa::where('kecamatan_id', $model->kecamatan_id)->sum('luas_wilayah');
             $dataUmum->kepadatan_penduduk = $dataUmum->luas_wilayah == 0 ? 0 : $dataUmum->jumlah_penduduk / $dataUmum->luas_wilayah;
 
             $dataUmum->save();
@@ -48,21 +48,23 @@ class AppServiceProvider extends ServiceProvider
 
         Validator::extend('nik_exists', function ($attribute, $value, $parameters) {
             $query = DB::table('das_penduduk')->
-                where('nik', $value)->whereRaw("tanggal_lahir = '" . $parameters[0] . "'")->exists();
+                where('nik', $value)->whereRaw("tanggal_lahir = '".$parameters[0]."'")->exists();
 
             if ($query) {
                 return true;
             }
+
             return false;
         });
 
         Validator::extend('password_exists', function ($attribute, $value, $parameters) {
             $query = DB::table('das_penduduk')->
-            where('tanggal_lahir', $value)->whereRaw("nik = '" . $parameters[0] . "'")->exists();
+            where('tanggal_lahir', $value)->whereRaw("nik = '".$parameters[0]."'")->exists();
 
             if ($query) {
                 return true;
             }
+
             return false;
         });
     }

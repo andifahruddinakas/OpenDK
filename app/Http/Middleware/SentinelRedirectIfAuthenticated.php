@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Closure;
 use Illuminate\Http\Request;
-
 use function redirect;
 
 class SentinelRedirectIfAuthenticated
@@ -14,6 +13,7 @@ class SentinelRedirectIfAuthenticated
      * Handle an incoming request.
      *
      * @param Request $request
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)

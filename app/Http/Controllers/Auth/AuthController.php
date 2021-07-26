@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use function back;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Exception;
+use function flash;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-
-use function back;
-use function flash;
 use function redirect;
 use function trans;
 use function view;
@@ -35,14 +34,17 @@ class AuthController extends Controller
     {
         try {
             $remember = (bool) $request->input('remember_me');
-            if (! Sentinel::authenticate($request->all(), $remember)) {
+            if (!Sentinel::authenticate($request->all(), $remember)) {
                 flash()->error('Wrong email or password!');
+
                 return redirect()->back()->withInput();
             }
             flash()->success('Login success! Welcome to Bali Tower admin page!');
+
             return redirect()->route('dashboard.profil');
         } catch (Exception $e) {
-            flash()->error('Error login!' . $e);
+            flash()->error('Error login!'.$e);
+
             return redirect()->back()->withInput();
         }
     }
@@ -55,6 +57,7 @@ class AuthController extends Controller
     public function logout()
     {
         Sentinel::logout();
+
         return redirect()->route('beranda');
     }
 
@@ -76,16 +79,18 @@ class AuthController extends Controller
     public function registerProcess(Request $request)
     {
         try {
-            $status = ! empty($request->status) ? 1 : 1;
+            $status = !empty($request->status) ? 1 : 1;
             $request->merge(['status' => $status]);
             $user = Sentinel::registerAndActivate($request->all());
 
             Sentinel::findRoleBySlug('admin')->users()->attach($user);
 
             flash()->success(trans('message.user.create-success'));
+
             return redirect()->route('/');
         } catch (Exception $e) {
             flash()->error(trans('message.user.create-error'));
+
             return back()->withInput();
         }
     }

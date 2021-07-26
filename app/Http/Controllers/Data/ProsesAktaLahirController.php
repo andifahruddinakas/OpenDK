@@ -4,18 +4,17 @@ namespace App\Http\Controllers\Data;
 
 use App\Http\Controllers\Controller;
 use App\Models\ProsesAktaLahir;
+use function back;
+use function compact;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Yajra\DataTables\DataTables;
-
-use function back;
-use function compact;
 use function redirect;
 use function request;
 use function route;
 use function view;
+use Yajra\DataTables\DataTables;
 
 class ProsesAktaLahirController extends Controller
 {
@@ -26,8 +25,9 @@ class ProsesAktaLahirController extends Controller
      */
     public function index()
     {
-        $page_title       = 'Proses Akta Lahir';
+        $page_title = 'Proses Akta Lahir';
         $page_description = 'Data Proses Pembuatan Akta Lahir';
+
         return view('data.proses_aktalahir.index', compact('page_title', 'page_description'));
     }
 
@@ -50,10 +50,10 @@ class ProsesAktaLahirController extends Controller
                 'das_proses_akta_lahir.catatan',
             ]))
             ->addColumn('action', function ($row) {
-                $edit_url   = route('data.proses-aktalahir.edit', $row->id);
+                $edit_url = route('data.proses-aktalahir.edit', $row->id);
                 $delete_url = route('data.proses-aktalahir.destroy', $row->id);
 
-                $data['edit_url']   = $edit_url;
+                $data['edit_url'] = $edit_url;
                 $data['delete_url'] = $delete_url;
 
                 return view('forms.action', $data);
@@ -67,6 +67,7 @@ class ProsesAktaLahirController extends Controller
                 } elseif ($row->status == 'SELESAI') {
                     $status = '<span class="badge bg-green">SELESAI</span>';
                 }
+
                 return $status;
             })
             ->rawColumns(['status', 'action'])->make();
@@ -79,7 +80,7 @@ class ProsesAktaLahirController extends Controller
      */
     public function create()
     {
-        $page_title       = 'Tambah';
+        $page_title = 'Tambah';
         $page_description = 'Tambah Proses Akta Lahir Baru';
 
         return view('data.proses_aktalahir.create', compact('page_title', 'page_description'));
@@ -111,7 +112,8 @@ class ProsesAktaLahirController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
@@ -121,14 +123,15 @@ class ProsesAktaLahirController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit($id)
     {
-        $akta             = ProsesAktaLahir::findOrFail($id);
-        $page_title       = 'Ubah';
-        $page_description = 'Ubah Proses Akta Lahir : ' . $akta->penduduk->nama;
+        $akta = ProsesAktaLahir::findOrFail($id);
+        $page_title = 'Ubah';
+        $page_description = 'Ubah Proses Akta Lahir : '.$akta->penduduk->nama;
 
         return view('data.proses_aktalahir.edit', compact('page_title', 'page_description', 'akta'));
     }
@@ -136,7 +139,8 @@ class ProsesAktaLahirController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function update(Request $request, $id)
@@ -160,7 +164,8 @@ class ProsesAktaLahirController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)

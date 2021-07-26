@@ -5,12 +5,11 @@ namespace App\Http\Controllers\Informasi;
 use App\Facades\Counter;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use function back;
+use function compact;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-
-use function back;
-use function compact;
 use function redirect;
 use function request;
 use function view;
@@ -26,9 +25,9 @@ class EventController extends Controller
     {
         Counter::count('informasi.event.index');
 
-        $page_title       = 'Event';
-        $page_description = 'Kumpulan Event ' .$this->sebutan_wilayah;
-        $events           = Event::getOpenEvents();
+        $page_title = 'Event';
+        $page_description = 'Kumpulan Event '.$this->sebutan_wilayah;
+        $events = Event::getOpenEvents();
 
         return view('informasi.event.index', compact('page_title', 'page_description', 'events'));
     }
@@ -40,7 +39,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        $page_title       = 'Tambah';
+        $page_title = 'Tambah';
         $page_description = 'Tambah event baru';
 
         return view('informasi.event.create', compact('page_title', 'page_description'));
@@ -63,6 +62,7 @@ class EventController extends Controller
             ]);
             $event->status = 'OPEN';
             $event->save();
+
             return redirect()->route('informasi.event.index')->with('success', 'Event berhasil disimpan!');
         } catch (Exception $e) {
             return back()->withInput()->with('error', 'Simpan Event gagal!');
@@ -72,7 +72,8 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
@@ -82,14 +83,15 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit($id)
     {
-        $page_title       = 'Ubah';
+        $page_title = 'Ubah';
         $page_description = 'Edit Event';
-        $event            = Event::find($id);
+        $event = Event::find($id);
 
         return view('informasi.event.edit', compact('page_title', 'page_description', 'event'));
     }
@@ -97,7 +99,8 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function update(Request $request, $id)
@@ -117,9 +120,9 @@ class EventController extends Controller
             if ($request->hasFile('attachment')) {
                 $lampiran = $request->file('attachment');
                 $fileName = $lampiran->getClientOriginalName();
-                $path     = "storage/event/" . $event->id . '/';
+                $path = 'storage/event/'.$event->id.'/';
                 $request->file('attachment')->move($path, $fileName);
-                $event->attachment = $path . $fileName;
+                $event->attachment = $path.$fileName;
             }
 
             $event->save();
@@ -133,7 +136,8 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)

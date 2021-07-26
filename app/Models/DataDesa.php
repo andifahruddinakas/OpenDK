@@ -17,18 +17,19 @@ class DataDesa extends Model
 
     /**
      * Getter untuk menambahkan url ke /feed.
-     * 
+     *
      * @return string
      */
     public function getWebsiteUrlFeedAttribute()
     {
-        return $this->website . '/index.php/feed';
+        return $this->website.'/index.php/feed';
     }
 
     /**
      * Scope query untuk website desa.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeWebsiteUrl($query)

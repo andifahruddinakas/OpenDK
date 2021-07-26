@@ -5,14 +5,13 @@ namespace App\Http\Controllers\Informasi;
 use App\Facades\Counter;
 use App\Http\Controllers\Controller;
 use App\Models\Potensi;
+use function back;
+use function compact;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-
-use function back;
-use function compact;
 use function redirect;
 use function request;
 use function view;
@@ -28,9 +27,9 @@ class PotensiController extends Controller
     {
         Counter::count('informasi.potensi.index');
 
-        $page_title       = 'Potensi';
-        $page_description = 'Potensi-Potensi ' .$this->sebutan_wilayah;
-        $potensis         = DB::table('das_potensi')->simplePaginate(10);
+        $page_title = 'Potensi';
+        $page_description = 'Potensi-Potensi '.$this->sebutan_wilayah;
+        $potensis = DB::table('das_potensi')->simplePaginate(10);
 
         return view('informasi.potensi.index', compact(['page_title', 'page_description', 'potensis']));
     }
@@ -44,8 +43,8 @@ class PotensiController extends Controller
     {
         Counter::count('informasi.potensi.kategori');
 
-        $page_title       = 'Potensi';
-        $page_description = 'Potensi-Potensi ' .$this->sebutan_wilayah;
+        $page_title = 'Potensi';
+        $page_description = 'Potensi-Potensi '.$this->sebutan_wilayah;
         if ($_GET['id'] != null) {
             $potensis = DB::table('das_potensi')->where('kategori_id', $_GET['id'])->simplePaginate(10);
         } else {
@@ -63,6 +62,7 @@ class PotensiController extends Controller
     public function create()
     {
         $page_title = 'Tambah Potensi';
+
         return view('informasi.potensi.create', compact('page_title'));
     }
 
@@ -85,29 +85,30 @@ class PotensiController extends Controller
             if ($request->hasFile('file_gambar')) {
                 $lampiran = $request->file('file_gambar');
                 $fileName = $lampiran->getClientOriginalName();
-                $path     = "storage/potensi_kecamatan/";
+                $path = 'storage/potensi_kecamatan/';
                 $request->file('file_gambar')->move($path, $fileName);
-                $potensi->file_gambar = $path . $fileName;
+                $potensi->file_gambar = $path.$fileName;
             }
 
             $potensi->save();
 
             return redirect()->route('informasi.potensi.index')->with('success', 'Potensi berhasil disimpan!');
         } catch (QueryException $e) {
-            return back()->withInput()->with('error', 'Simpan Event gagal! ' . $e->getMessage());
+            return back()->withInput()->with('error', 'Simpan Event gagal! '.$e->getMessage());
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
     {
-        $potensi    = Potensi::find($id);
-        $page_title = 'Potensi :' . $potensi->nama_potensi;
+        $potensi = Potensi::find($id);
+        $page_title = 'Potensi :'.$potensi->nama_potensi;
 
         return view('informasi.potensi.show', compact('page_title', 'potensi'));
     }
@@ -115,14 +116,15 @@ class PotensiController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit($id)
     {
-        $potensi          = Potensi::findOrFail($id);
-        $page_title       = 'Ubah';
-        $page_description = 'Ubah Potensi : ' . $potensi->nama_potensi;
+        $potensi = Potensi::findOrFail($id);
+        $page_title = 'Ubah';
+        $page_description = 'Ubah Potensi : '.$potensi->nama_potensi;
 
         return view('informasi.potensi.edit', compact('page_title', 'page_description', 'potensi'));
     }
@@ -130,7 +132,8 @@ class PotensiController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function download($id)
@@ -140,7 +143,8 @@ class PotensiController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function update(Request $request, $id)
@@ -159,33 +163,35 @@ class PotensiController extends Controller
             if ($request->hasFile('file_gambar')) {
                 $lampiran = $request->file('file_gambar');
                 $fileName = $lampiran->getClientOriginalName();
-                $path     = "storage/potensi_kecamatan/";
+                $path = 'storage/potensi_kecamatan/';
                 $request->file('file_gambar')->move($path, $fileName);
-                $potensi->file_gambar = $path . $fileName;
+                $potensi->file_gambar = $path.$fileName;
             }
 
             $potensi->save();
 
             return redirect()->route('informasi.potensi.index')->with('success', 'Data Potensi berhasil disimpan!');
         } catch (Exception $e) {
-            return back()->with('error', 'Data Potensi gagal disimpan!' . $e->getMessage());
+            return back()->with('error', 'Data Potensi gagal disimpan!'.$e->getMessage());
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)
     {
         Potensi::find($id)->delete();
+
         return redirect()->route('informasi.potensi.index')->with('success', 'Potensi Berhasil dihapus!');
     }
 
     /**
-     * Get datatable
+     * Get datatable.
      */
     // public function getDataPotensi()
     // {

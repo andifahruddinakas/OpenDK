@@ -10,11 +10,12 @@
  * This source file is subject to the 3-clause BSD License that is
  * bundled with this package in the LICENSE file.
  *
- * @package    Sentinel
  * @version    2.0.16
+ *
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
  * @copyright  (c) 2011-2017, Cartalyst LLC
+ *
  * @link       http://cartalyst.com
  */
 
@@ -107,12 +108,10 @@ class MigrationCartalystSentinel extends Migration
             $table->text('address')->nullable();
             $table->string('ip_address')->nullable();
             $table->string('phone')->nullable();
-            $table->enum( 'gender', [ 'Male', 'Female' ] )->nullable();
+            $table->enum('gender', ['Male', 'Female'])->nullable();
             $table->integer('status')->nullable();
             $table->timestamps();
             $table->softDeletes();
-
-            
         });
     }
 

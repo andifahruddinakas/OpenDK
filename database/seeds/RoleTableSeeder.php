@@ -15,12 +15,11 @@ class RoleTableSeeder extends Seeder
         DB::table('roles')->truncate();
 
         Sentinel::getRoleRepository()->createModel()->create([
-            'slug' => 'super-admin',
-            'name' => 'Super Administrator',
+            'slug'        => 'super-admin',
+            'name'        => 'Super Administrator',
             'permissions' => [
-                'admin' => true
-            ]
+                'admin' => true,
+            ],
         ]);
-
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Time: 3:14 PM
+ * Time: 3:14 PM.
  */
 
 namespace App\Http\Controllers\Informasi;

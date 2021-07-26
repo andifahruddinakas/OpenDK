@@ -6,9 +6,8 @@ use App\Facades\Counter;
 use App\Http\Controllers\Controller;
 use App\Models\DataDesa;
 use App\Models\Profil;
-use Illuminate\Support\Facades\DB;
-
 use function config;
+use Illuminate\Support\Facades\DB;
 use function intval;
 use function kuartal_bulan;
 use function request;
@@ -20,28 +19,29 @@ use function years_list;
 class PendidikanController extends Controller
 {
     public $nama_kuartal = ['q1' => 'Kuartal 1', 'q2' => 'Kuartal 2', 'q3' => 'Kuartal 3', 'q4' => 'Kuartal 4'];
+
     /**
-     * Menampilkan Data Pendidikan
+     * Menampilkan Data Pendidikan.
      **/
     public function showPendidikan()
     {
         Counter::count('statistik.pendidikan');
 
-        $data['page_title']       = 'Pendidikan';
-        $data['page_description'] = 'Data Pendidikan ' . $this->sebutan_wilayah;
-        $defaultProfil            = config('app.default_profile');
-        $data['defaultProfil']    = $defaultProfil;
-        $data['year_list']        = years_list();
-        $data['list_kecamatan']   = Profil::with('kecamatan')->orderBy('kecamatan_id', 'desc')->get();
-        $data['list_desa']        = DB::table('das_data_desa')->select('*')->where('kecamatan_id', '=', $defaultProfil)->get();
+        $data['page_title'] = 'Pendidikan';
+        $data['page_description'] = 'Data Pendidikan '.$this->sebutan_wilayah;
+        $defaultProfil = config('app.default_profile');
+        $data['defaultProfil'] = $defaultProfil;
+        $data['year_list'] = years_list();
+        $data['list_kecamatan'] = Profil::with('kecamatan')->orderBy('kecamatan_id', 'desc')->get();
+        $data['list_desa'] = DB::table('das_data_desa')->select('*')->where('kecamatan_id', '=', $defaultProfil)->get();
 
         return view('pages.pendidikan.show_pendidikan')->with($data);
     }
 
     public function getChartTingkatPendidikan()
     {
-        $kid  = request('kid');
-        $did  = request('did');
+        $kid = request('kid');
+        $did = request('did');
         $year = request('y');
 
         // Grafik Data TIngkat Pendidikan
@@ -62,7 +62,7 @@ class PendidikanController extends Controller
                     'tamat_diploma_sederajat' => $query_pendidikan->sum('tamat_diploma_sederajat'),
                 ];
             }
-        } elseif ($year != "ALL" && $did == "ALL") {
+        } elseif ($year != 'ALL' && $did == 'ALL') {
             $data_tabel = [];
             // Quartal
             $desa = DataDesa::where('kecamatan_id', $kid)->get();
@@ -91,14 +91,14 @@ class PendidikanController extends Controller
             foreach (semester() as $key => $value) {
                 $query_pendidikan = DB::table('das_tingkat_pendidikan')
                     ->selectRaw('sum(tidak_tamat_sekolah) as tidak_tamat_sekolah, sum(tamat_sd) as tamat_sd, sum(tamat_smp) as tamat_smp, sum(tamat_sma) as tamat_sma, sum(tamat_diploma_sederajat) as tamat_diploma_sederajat')
-                    ->whereRaw('bulan in (' . $this->getIdsSemester($key) . ')')
+                    ->whereRaw('bulan in ('.$this->getIdsSemester($key).')')
                     ->where('tahun', $year)
                     ->where('desa_id', '=', $did)
                     ->get()->first();
 
                 //return $query_pendidikan;
                 $data_tabel[] = [
-                    'year'                    => 'Semester ' . $key,
+                    'year'                    => 'Semester '.$key,
                     'tidak_tamat_sekolah'     => intval($query_pendidikan->tidak_tamat_sekolah),
                     'tamat_sd'                => intval($query_pendidikan->tamat_sd),
                     'tamat_smp'               => intval($query_pendidikan->tamat_smp),
@@ -138,8 +138,8 @@ class PendidikanController extends Controller
 
     public function getChartPutusSekolah()
     {
-        $kid  = request('kid');
-        $did  = request('did');
+        $kid = request('kid');
+        $did = request('did');
         $year = request('y');
 
         // Grafik Data Siswa PAUD
@@ -209,12 +209,12 @@ class PendidikanController extends Controller
             // Quartal
             foreach (semester() as $key => $kuartal) {
                 $query_pendidikan = DB::table('das_putus_sekolah')
-                    ->whereRaw('bulan in (' . $this->getIdsSemester($key) . ')')
+                    ->whereRaw('bulan in ('.$this->getIdsSemester($key).')')
                     ->where('tahun', $year)
                     ->where('desa_id', '=', $did);
 
                 $data_tabel[] = [
-                    'year'           => 'Semester ' . $key,
+                    'year'           => 'Semester '.$key,
                     'siswa_paud'     => $query_pendidikan->sum('siswa_paud'),
                     'anak_usia_paud' => $query_pendidikan->sum('anak_usia_paud'),
                     'siswa_sd'       => $query_pendidikan->sum('siswa_sd'),
@@ -240,8 +240,8 @@ class PendidikanController extends Controller
 
     public function getChartFasilitasPAUD()
     {
-        $kid  = request('kid');
-        $did  = request('did');
+        $kid = request('kid');
+        $did = request('did');
         $year = request('y');
 
         // Grafik Data Fasilitas PAUD
@@ -268,13 +268,13 @@ class PendidikanController extends Controller
             // Quartal
             foreach (semester() as $key => $kuartal) {
                 $query_pendidikan = DB::table('das_fasilitas_paud')
-                    ->whereRaw('semester in (' . $this->getIdsSemester($key) . ')')
+                    ->whereRaw('semester in ('.$this->getIdsSemester($key).')')
                     ->where('tahun', $year);
                 if ($did != 'ALL') {
                     $query_pendidikan->where('desa_id', '=', $did);
                 }
                 $data_tabel[] = [
-                    'year'              => 'Semester ' . $key,
+                    'year'              => 'Semester '.$key,
                     'jumlah_paud'       => $query_pendidikan->sum('jumlah_paud'),
                     'jumlah_guru_paud'  => $query_pendidikan->sum('jumlah_guru_paud'),
                     'jumlah_siswa_paud' => $query_pendidikan->sum('jumlah_siswa_paud'),
@@ -296,20 +296,22 @@ class PendidikanController extends Controller
     private function getIdsQuartal($q)
     {
         $quartal = kuartal_bulan()[$q];
-        $ids     = '';
+        $ids = '';
         foreach ($quartal as $key => $val) {
-            $ids .= $key . ',';
+            $ids .= $key.',';
         }
+
         return rtrim($ids, ',');
     }
 
     private function getIdsSemester($smt)
     {
         $semester = semester()[$smt];
-        $ids      = '';
+        $ids = '';
         foreach ($semester as $key => $val) {
-            $ids .= $key . ',';
+            $ids .= $key.',';
         }
+
         return rtrim($ids, ',');
     }
 }

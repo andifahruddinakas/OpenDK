@@ -42,6 +42,7 @@ class Handler extends ExceptionHandler
      * Render an exception into an HTTP response.
      *
      * @param Request $request
+     *
      * @return Response
      */
     public function render($request, Exception $exception)

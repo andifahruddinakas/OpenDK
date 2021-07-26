@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\Role;
 use Cartalyst\Sentinel\Users\EloquentUser as SentinelModel;
+use function file_exists;
 use Illuminate\Auth\Authenticatable as AuthenticableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\File;
 use Image;
-
-use function file_exists;
 use function public_path;
 
 class User extends SentinelModel implements Authenticatable
@@ -81,21 +79,22 @@ class User extends SentinelModel implements Authenticatable
     /**
      * Uploads an image.
      *
-     * @param      <type>  $image  The image
-     * @return     <type>  ( description_of_the_return_value )
+     * @param <type> $image The image
+     *
+     * @return <type> ( description_of_the_return_value )
      */
     public function uploadImage($image)
     {
         $extension = $image->getClientOriginalExtension();
-        $path      = public_path('uploads/user/');
+        $path = public_path('uploads/user/');
 
-        if (! file_exists($path)) {
+        if (!file_exists($path)) {
             File::makeDirectory($path, 0777, true);
         }
 
-        $name = $this->id . '.' . $extension;
-        $img  = Image::make($image->getRealPath());
-        $img->save($path . $name);
+        $name = $this->id.'.'.$extension;
+        $img = Image::make($image->getRealPath());
+        $img->save($path.$name);
 
         return $this->update(['image' => $name]);
     }

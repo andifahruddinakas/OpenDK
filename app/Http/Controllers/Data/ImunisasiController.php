@@ -5,23 +5,21 @@ namespace App\Http\Controllers\Data;
 use App\Http\Controllers\Controller;
 use App\Imports\ImporImunisasi;
 use App\Models\Imunisasi;
+use function back;
+use function compact;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Yajra\DataTables\DataTables;
-
-use function back;
-use function compact;
 use function months_list;
 use function redirect;
 use function request;
 use function route;
 use function view;
+use Yajra\DataTables\DataTables;
 use function years_list;
 
 class ImunisasiController extends Controller
 {
-    
     public $bulan;
     public $tahun;
 
@@ -37,8 +35,9 @@ class ImunisasiController extends Controller
      */
     public function index()
     {
-        $page_title       = 'Imunisasi';
-        $page_description = 'Data Cakupan Imunisasi ' . $this->sebutan_wilayah. ' ' .$this->nama_wilayah;
+        $page_title = 'Imunisasi';
+        $page_description = 'Data Cakupan Imunisasi '.$this->sebutan_wilayah.' '.$this->nama_wilayah;
+
         return view('data.imunisasi.index', compact('page_title', 'page_description'));
     }
 
@@ -51,10 +50,10 @@ class ImunisasiController extends Controller
     {
         return DataTables::of(Imunisasi::with(['desa']))
             ->addColumn('actions', function ($row) {
-                $edit_url   = route('data.imunisasi.edit', $row->id);
+                $edit_url = route('data.imunisasi.edit', $row->id);
                 $delete_url = route('data.imunisasi.destroy', $row->id);
 
-                $data['edit_url']   = $edit_url;
+                $data['edit_url'] = $edit_url;
                 $data['delete_url'] = $delete_url;
 
                 return view('forms.action', $data);
@@ -72,10 +71,11 @@ class ImunisasiController extends Controller
      */
     public function import()
     {
-        $page_title       = 'Import';
+        $page_title = 'Import';
         $page_description = 'Import Data Cakupan Imunisasi';
-        $years_list       = years_list();
-        $months_list      = months_list();
+        $years_list = years_list();
+        $months_list = months_list();
+
         return view('data.imunisasi.import', compact('page_title', 'page_description', 'years_list', 'months_list'));
     }
 
@@ -96,7 +96,7 @@ class ImunisasiController extends Controller
             (new ImporImunisasi($request->all()))
                 ->queue($request->file('file'));
         } catch (Exception $e) {
-            return back()->with('error', 'Import data gagal. ' . $e->getMessage());
+            return back()->with('error', 'Import data gagal. '.$e->getMessage());
         }
 
         return back()->with('success', 'Import data sukses.');
@@ -105,14 +105,15 @@ class ImunisasiController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit($id)
     {
-        $imunisasi        = Imunisasi::findOrFail($id);
-        $page_title       = 'Ubah';
-        $page_description = 'Ubah Data Cakupan Imunisasi: ' . $imunisasi->id;
+        $imunisasi = Imunisasi::findOrFail($id);
+        $page_title = 'Ubah';
+        $page_description = 'Ubah Data Cakupan Imunisasi: '.$imunisasi->id;
 
         return view('data.imunisasi.edit', compact('page_title', 'page_description', 'imunisasi'));
     }
@@ -120,7 +121,8 @@ class ImunisasiController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function update(Request $request, $id)
@@ -141,7 +143,8 @@ class ImunisasiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)

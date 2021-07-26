@@ -13,7 +13,7 @@ class ImporPutusSekolah implements ToModel, WithHeadingRow, WithChunkReading, Sh
 {
     use Importable;
 
-    /** @var array $request */
+    /** @var array */
     protected $request;
 
     public function __construct(array $request)

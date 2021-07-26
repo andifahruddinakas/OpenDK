@@ -31,9 +31,9 @@ class Menu extends Model
     }
 
     /**
-     * slug for menu name
+     * slug for menu name.
      *
-     * @return     array
+     * @return array
      */
     public function sluggable()
     {
@@ -45,7 +45,7 @@ class Menu extends Model
     }
 
     /**
-     * Show Menus
+     * Show Menus.
      *
      * @return void
      */

@@ -4,69 +4,56 @@ use Illuminate\Database\Seeder;
 
 class RefCaraKbTableSeeder extends Seeder
 {
-
     /**
-     * Auto generated seed file
+     * Auto generated seed file.
      *
      * @return void
      */
     public function run()
     {
-        
-
         \DB::table('ref_cara_kb')->delete();
-        
-        \DB::table('ref_cara_kb')->insert(array (
-            0 => 
-            array (
-                'id' => 1,
+
+        \DB::table('ref_cara_kb')->insert([
+            0 => [
+                'id'   => 1,
                 'nama' => 'Pil',
-                'sex' => 2,
-            ),
-            1 => 
-            array (
-                'id' => 2,
+                'sex'  => 2,
+            ],
+            1 => [
+                'id'   => 2,
                 'nama' => 'IUD',
-                'sex' => 2,
-            ),
-            2 => 
-            array (
-                'id' => 3,
+                'sex'  => 2,
+            ],
+            2 => [
+                'id'   => 3,
                 'nama' => 'Suntik',
-                'sex' => 2,
-            ),
-            3 => 
-            array (
-                'id' => 4,
+                'sex'  => 2,
+            ],
+            3 => [
+                'id'   => 4,
                 'nama' => 'Kondom',
-                'sex' => 1,
-            ),
-            4 => 
-            array (
-                'id' => 5,
+                'sex'  => 1,
+            ],
+            4 => [
+                'id'   => 5,
                 'nama' => 'Susuk KB',
-                'sex' => 2,
-            ),
-            5 => 
-            array (
-                'id' => 6,
+                'sex'  => 2,
+            ],
+            5 => [
+                'id'   => 6,
                 'nama' => 'Sterilisasi Wanita',
-                'sex' => 2,
-            ),
-            6 => 
-            array (
-                'id' => 7,
+                'sex'  => 2,
+            ],
+            6 => [
+                'id'   => 7,
                 'nama' => 'Sterilisasi Pria',
-                'sex' => 1,
-            ),
-            7 => 
-            array (
-                'id' => 99,
+                'sex'  => 1,
+            ],
+            7 => [
+                'id'   => 99,
                 'nama' => 'Lainnya',
-                'sex' => 3,
-            ),
-        ));
-        
-        
+                'sex'  => 3,
+            ],
+        ]);
     }
 }
