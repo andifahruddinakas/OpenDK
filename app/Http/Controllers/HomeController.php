@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Response;
-
 use function captcha_img;
+
+use Illuminate\Http\Response;
 use function response;
 use function view;
 

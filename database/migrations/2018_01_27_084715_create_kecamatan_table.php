@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateKecamatanTable extends Migration
 {
@@ -16,7 +16,7 @@ class CreateKecamatanTable extends Migration
         Schema::create('ref_kecamatan', function (Blueprint $table) {
             $table->char('id', 7);
             $table->char('kabupaten_id', 4);
-            $table->string('nama',255);
+            $table->string('nama', 255);
         });
     }
 

@@ -3,7 +3,6 @@
 use App\Models\DataDesa;
 use App\Models\Wilayah;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class DasDataDesaTableSeeder extends Seeder
 {

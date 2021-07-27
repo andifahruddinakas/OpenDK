@@ -4,7 +4,6 @@ namespace Database\Seeds\Demo;
 
 use App\Imports\ImporImunisasi;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class DemoImunisasiSeeder extends Seeder

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\DataUmum;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +13,6 @@ class DasDataUmumTableSeeder extends Seeder
      */
     public function run()
     {
-
         \DB::table('das_data_umum')->delete();
 
         DB::table('das_data_umum')->insert([

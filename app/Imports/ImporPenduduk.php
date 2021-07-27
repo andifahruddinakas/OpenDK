@@ -3,15 +3,14 @@
 namespace App\Imports;
 
 use App\Models\Penduduk;
+use function config;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Barryvdh\Debugbar\Facade as Debugbar;
 
-use function config;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use function now;
 use function substr;
 

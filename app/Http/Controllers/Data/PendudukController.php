@@ -6,29 +6,25 @@ use App\Http\Controllers\Controller;
 use App\Imports\ImporPenduduk;
 use App\Models\DataDesa;
 use App\Models\Penduduk;
-use Doctrine\DBAL\Query\QueryException;
-use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use Yajra\DataTables\DataTables;
-use Barryvdh\Debugbar\Facade as Debugbar;
-
-use ZipArchive;
-
 use function back;
 use function compact;
 use function config;
 use function convert_born_date_to_age;
-use function redirect;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+use Illuminate\Support\Facades\DB;
+
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use function request;
 use function route;
 use function strtolower;
-use function substr;
 use function ucwords;
 use function view;
+use Yajra\DataTables\DataTables;
+use ZipArchive;
 
 class PendudukController extends Controller
 {
