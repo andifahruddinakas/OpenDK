@@ -23,8 +23,7 @@ class UsersTableSeeder extends Seeder
         $datas = [
             [
                 'email' => 'admin@mail.com',
-                'first_name' => 'Administrator',
-                'last_name' => '',
+                'name' => 'Administrator',
                 'gender' => 'Male',
                 'role' => 'super-admin',
                 'address' => 'Jakarta',
@@ -37,8 +36,7 @@ class UsersTableSeeder extends Seeder
             $user = Sentinel::registerAndActivate( [
                 'email' => $data[ 'email' ],
                 'password' => "password",
-                'first_name' => $data[ 'first_name' ],
-                'last_name' => $data[ 'last_name' ],
+                'name' => $data['name'],
                 'gender' => $data[ 'gender' ],
                 'phone' => $data[ 'phone' ],
                 'address' => $data[ 'address' ],
