@@ -16,7 +16,7 @@ class CreateSettingAplikasisTable extends Migration
         Schema::create('das_setting', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('key', 50)->unique();
-            $table->text('value');
+                $table->text('value');
             $table->string('type', 30);
             $table->string('description', 200);
             $table->string('kategori', 200);
