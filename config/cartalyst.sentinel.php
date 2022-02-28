@@ -64,7 +64,7 @@ return [
 
     'users' => [
 
-        'model' => 'App\Models\User',
+        'model' => App\Models\User::class,
 
     ],
 
@@ -79,7 +79,7 @@ return [
 
     'roles' => [
 
-        'model' => 'App\Models\Role',
+        'model' => App\Models\Role::class,
 
     ],
 
