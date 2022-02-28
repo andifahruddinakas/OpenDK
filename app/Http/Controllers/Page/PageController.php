@@ -8,7 +8,6 @@ use App\Models\DataDesa;
 use function compact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use function request;
 use function str_replace;
 use function view;
 use willvincent\Feeds\Facades\FeedsFacade;

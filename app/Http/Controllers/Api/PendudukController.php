@@ -12,10 +12,8 @@ use App\Models\Penduduk;
 use function back;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use function request;
 
 use function response;
 use ZipArchive;
