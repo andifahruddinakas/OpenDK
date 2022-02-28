@@ -17,15 +17,15 @@
                     ob_start();
                     phpinfo(-1);
                 
-                    $phpinfo = array('phpinfo' => array());
+                    $phpinfo = ['phpinfo' => []];
 
                     // Strip everything after the <h1>Configuration</h1> tag (other h1's)
                     if (!preg_match('#(.*<h1[^>]*>\s*Configuration.*)<h1#s', ob_get_clean(), $matches)) {
-                        return array();
+                        return [];
                     }
                 
                     $input = $matches[1];
-                    $matches = array();
+                    $matches = [];
 
                     if(preg_match_all(
                         '#(?:<h2.*?>(?:<a.*?>)?(.*?)(?:<\/a>)?<\/h2>)|'.
@@ -37,10 +37,10 @@
                         foreach ($matches as $match) {
                             $fn = strpos($match[0], '<th') === false ? $plainText : $titlePlainText;
                             if (strlen($match[1])) {
-                                $phpinfo[$match[1]] = array();
+                                $phpinfo[$match[1]] = [];
                             } elseif (isset($match[3])) {
                                 $keys1 = array_keys($phpinfo);
-                                $phpinfo[end($keys1)][$fn($match[2])] = isset($match[4]) ? array($fn($match[3]), $fn($match[4])) : $fn($match[3]);
+                                $phpinfo[end($keys1)][$fn($match[2])] = isset($match[4]) ? [$fn($match[3]), $fn($match[4])] : $fn($match[3]);
                             } else {
                                 $keys1 = array_keys($phpinfo);
                                 $phpinfo[end($keys1)][] = $fn($match[2]);
