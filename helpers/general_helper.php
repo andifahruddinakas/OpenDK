@@ -7,7 +7,7 @@
  *
  * Aplikasi dan source code ini dirilis berdasarkan lisensi GPL V3
  *
- * Hak Cipta 2017 - 2022 Perkumpulan Desa Digital Terbuka (https://opendesa.id)
+ * Hak Cipta 2017 - 2023 Perkumpulan Desa Digital Terbuka (https://opendesa.id)
  *
  * Dengan ini diberikan izin, secara gratis, kepada siapa pun yang mendapatkan salinan
  * dari perangkat lunak ini dan file dokumentasi terkait ("Aplikasi Ini"), untuk diperlakukan
@@ -24,7 +24,7 @@
  *
  * @package	    OpenDK
  * @author	    Tim Pengembang OpenDesa
- * @copyright	Hak Cipta 2017 - 2022 Perkumpulan Desa Digital Terbuka (https://opendesa.id)
+ * @copyright	Hak Cipta 2017 - 2023 Perkumpulan Desa Digital Terbuka (https://opendesa.id)
  * @license    	http://www.gnu.org/licenses/gpl.html    GPL V3
  * @link	    https://github.com/OpenSID/opendk
  */
@@ -324,29 +324,29 @@ if (! function_exists('divnum')) {
         return $denominator == 0 ? 0 : ($numerator / $denominator);
     }
 }
-    function terbilang($angka)
-    {
-        $angka=abs($angka);
-        $baca =["", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan", "Sembilan", "Sepuluh", "Sebelas"];
+function terbilang($angka)
+{
+    $angka=abs($angka);
+    $baca =["", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan", "Sembilan", "Sepuluh", "Sebelas"];
 
-        $terbilang="";
-        if ($angka < 12) {
-            $terbilang= " " . $baca[$angka];
-        } elseif ($angka < 20) {
-            $terbilang= terbilang($angka - 10) . " Belas";
-        } elseif ($angka < 100) {
-            $terbilang= terbilang($angka / 10) . " Puluh" . terbilang($angka % 10);
-        } elseif ($angka < 200) {
-            $terbilang= " seratus" . terbilang($angka - 100);
-        } elseif ($angka < 1000) {
-            $terbilang= terbilang($angka / 100) . " Ratus" . terbilang($angka % 100);
-        } elseif ($angka < 2000) {
-            $terbilang= " seribu" . terbilang($angka - 1000);
-        } elseif ($angka < 1000000) {
-            $terbilang= terbilang($angka / 1000) . " Ribu" . terbilang($angka % 1000);
-        } elseif ($angka < 1000000000) {
-            $terbilang= terbilang($angka / 1000000) . " Juta" . terbilang($angka % 1000000);
-        }
-
-        return $terbilang;
+    $terbilang="";
+    if ($angka < 12) {
+        $terbilang= " " . $baca[$angka];
+    } elseif ($angka < 20) {
+        $terbilang= terbilang($angka - 10) . " Belas";
+    } elseif ($angka < 100) {
+        $terbilang= terbilang($angka / 10) . " Puluh" . terbilang($angka % 10);
+    } elseif ($angka < 200) {
+        $terbilang= " seratus" . terbilang($angka - 100);
+    } elseif ($angka < 1000) {
+        $terbilang= terbilang($angka / 100) . " Ratus" . terbilang($angka % 100);
+    } elseif ($angka < 2000) {
+        $terbilang= " seribu" . terbilang($angka - 1000);
+    } elseif ($angka < 1000000) {
+        $terbilang= terbilang($angka / 1000) . " Ribu" . terbilang($angka % 1000);
+    } elseif ($angka < 1000000000) {
+        $terbilang= terbilang($angka / 1000000) . " Juta" . terbilang($angka % 1000000);
     }
+
+    return $terbilang;
+}
